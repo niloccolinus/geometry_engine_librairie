@@ -85,6 +85,20 @@ class Vector3:
             raise ValueError("Cannot normalize a zero vector.")
         return Vector3(self.x / n, self.y / n, self.z / n)
 
+    def cross_product(self, other: 'Vector3'):
+        """Generate the cross product of 2 3D vectors."""
+        if isinstance(other, Vector3):
+            return Vector3(self.y * other.w - self.w * other.y,
+                           self.w * other.x - self.x * other.w,
+                           self.x * other.y - self.y * other.x)
+        else:
+            raise TypeError(f"{other} is not a Vector3")
+
+    def homogenize(self):
+        """Convert the vector to a 4D homogeneous vector."""
+        from Mathy import HomogeneousVector4
+        return HomogeneousVector4(self.x, self.y, self.z)
+
 
 class HomogeneousVector3(Vector3):
     """

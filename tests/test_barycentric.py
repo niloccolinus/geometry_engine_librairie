@@ -28,6 +28,23 @@ def test_barycentric_coordinates():
     u, v, w = barycentric_coordinates(P4, A, B, C)
     assert abs(u) < 1e-6 and abs(v) < 1e-6 and abs(w - 1.0) < 1e-6
 
+    # Test 5: Point outside the triangle 
+    # (should have at least one negative barycentric coordinate)
+    P5 = Vector3(-0.5, -0.5, 0)
+    u, v, w = barycentric_coordinates(P5, A, B, C)
+    assert u < 0 or v < 0 or w < 0, f"Expected at least one negative coordinate for point outside, got {(u, v, w)}"  # noqa: E501
+
+    # Test 6: Degenerate triangle (collinear points, should raise ValueError)
+    A_col = Vector3(0, 0, 0)
+    B_col = Vector3(1, 1, 0)
+    C_col = Vector3(2, 2, 0)  # Points are collinear
+
+    try:
+        barycentric_coordinates(Vector3(1, 1, 0), A_col, B_col, C_col)
+        assert False, "Expected ValueError for degenerate triangle"
+    except ValueError as e:
+        assert str(e) == "Degenerate triangle: points are collinear"
+
     print("All tests passed.")
 
 

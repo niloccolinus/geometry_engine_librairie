@@ -11,6 +11,7 @@ from .matrix3x3 import Matrix3x3
 from .matrix3x3 import TranslationMatrix3x3
 from .matrix3x3 import RotationMatrix3x3
 from .matrix3x3 import HomothetyMatrix3x3
+from .barycentric import barycentric_coordinates
 
 __all__ = [
     "Renderer",
@@ -27,5 +28,6 @@ __all__ = [
     "sin",
     "cos",
     "Vector3",
-    "HomogeneousVector3"
+    "HomogeneousVector3",
+    "barycentric_coordinates"
 ]

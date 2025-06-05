@@ -22,6 +22,9 @@ from .matrix4x4 import RotationMatrix4x4_y
 from .matrix4x4 import RotationMatrix4x4_z
 from .matrix4x4 import AnisotropicMatrix4x4
 from .matrix4x4 import TotalRotationMatrix4x4
+from .renderer3d import Renderer3D
+from .transform import Transform
+from .gameobject import GameObject
 
 __all__ = [
     "Renderer",
@@ -49,5 +52,8 @@ __all__ = [
     "RotationMatrix4x4_y",
     "RotationMatrix4x4_z",
     "AnisotropicMatrix4x4",
-    "TotalRotationMatrix4x4"
+    "TotalRotationMatrix4x4",
+    "Renderer3D",
+    "Transform",
+    "GameObject"
 ]

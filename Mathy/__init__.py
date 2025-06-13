@@ -12,6 +12,14 @@ from .matrix3x3 import TranslationMatrix3x3
 from .matrix3x3 import RotationMatrix3x3
 from .matrix3x3 import HomothetyMatrix3x3
 from .barycentric import barycentric_coordinates
+from .vector4 import Vector4
+from .vector4 import HomogeneousVector4
+from .matrix4x4 import Matrix4x4
+from .matrix4x4 import TranslationMatrix4x4
+from .matrix4x4 import HomothetyMatrix4x4
+from .matrix4x4 import RotationMatrix4x4_x
+from .matrix4x4 import RotationMatrix4x4_y
+from .matrix4x4 import RotationMatrix4x4_z
 
 __all__ = [
     "Renderer",
@@ -29,5 +37,13 @@ __all__ = [
     "cos",
     "Vector3",
     "HomogeneousVector3",
-    "barycentric_coordinates"
+    "barycentric_coordinates",
+    "Vector4",
+    "HomogeneousVector4",
+    "Matrix4x4",
+    "TranslationMatrix4x4",
+    "HomothetyMatrix4x4",
+    "RotationMatrix4x4_x",
+    "RotationMatrix4x4_y",
+    "RotationMatrix4x4_z"
 ]

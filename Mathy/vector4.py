@@ -73,7 +73,7 @@ class Vector4:
         The new vector has the same direction and a length of 1.
         """
         n = self.norm
-        if n == 0:
+        if abs(n) < 1e-9:
             raise ValueError("Cannot normalize a zero vector.")
         return Vector4(self.x / n, self.y / n, self.z / n, self.w / n)
 

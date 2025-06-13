@@ -7,10 +7,13 @@ class Vector4:
     def __init__(self, x: float | int, y: float | int, z: float | int,
                  w: float | int):
         """Initialize a 4D vector with the given components."""
-        self.x = x
-        self.y = y
-        self.z = z
-        self.w = w
+        if all(isinstance(i, (int, float)) for i in [x, y, z, w]):
+            self.x = x
+            self.y = y
+            self.z = z
+            self.w = w
+        else:
+            raise TypeError("All components must be floats or ints.")
 
     @property
     def norm(self) -> float:
@@ -20,8 +23,10 @@ class Vector4:
     def __eq__(self, other: 'Vector4') -> bool:
         """Check if two vectors are equal."""
         if isinstance(other, Vector4):
-            return ((self.x == other.x) and (self.y == other.y)
-                    and (self.z == other.z)) and (self.w == other.w)
+            return ((abs(self.x - other.x) < 1e-9)
+                    and (abs(self.y - other.y) < 1e-9)
+                    and (abs(self.z - other.z) < 1e-9)
+                    and (abs(self.w - other.w) < 1e-9))
         else:
             raise TypeError(f"{other} is not a Vector4")
 
@@ -38,8 +43,11 @@ class Vector4:
 
     def multiply_by_scalar(self, factor: float | int) -> 'Vector4':
         """Multiply the vector by a scalar and return the resulting Vector4."""
-        return Vector4(self.x * factor, self.y * factor,
-                       self.z * factor, self.w * factor)
+        if isinstance(factor, (float, int)):
+            return Vector4(self.x * factor, self.y * factor,
+                           self.z * factor, self.w * factor)
+        else:
+            raise TypeError(f"{factor} is not a float or int.")
 
     def multiply_by_matrix(self, matrix) -> 'Vector4':
         """

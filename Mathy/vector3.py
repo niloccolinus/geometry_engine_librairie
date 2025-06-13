@@ -88,8 +88,8 @@ class Vector3:
     def cross_product(self, other: 'Vector3'):
         """Generate the cross product of 2 3D vectors."""
         if isinstance(other, Vector3):
-            return Vector3(self.y * other.w - self.w * other.y,
-                           self.w * other.x - self.x * other.w,
+            return Vector3(self.y * other.z - self.z * other.y,
+                           self.z * other.x - self.x * other.z,
                            self.x * other.y - self.y * other.x)
         else:
             raise TypeError(f"{other} is not a Vector3")

@@ -1,19 +1,40 @@
 """Tests for verifying proper Vector functionality."""
 
 import pytest
-from Mathy import Vector3, HomogeneousVector3, Matrix3x3, Vector4
+from Mathy import (Vector3,
+                   HomogeneousVector3,
+                   Matrix3x3,
+                   Vector4,
+                   HomothetyMatrix3x3,
+                   TranslationMatrix3x3)
+
+
+def test_constructor():
+    """Test arguments' types for Vector3 constructor."""
+    # Ints
+    Vector3(1, 2, 3)
+
+    # Floats
+    Vector3(1.0, 2.0, 3.0)
+
+    # Floats and ints
+    Vector3(1, 2.0, 3)
+
+    # Invalid types
+    with pytest.raises(TypeError, match=r".* must be floats or ints.*"):
+        Vector3(False, "a", [])
 
 
 def test_norm():
     """Test norm() method."""
     # Norm zero
-    assert Vector3(0, 0, 0).norm == 0.0
+    assert abs(Vector3(0, 0, 0).norm) < 1e-9
 
     # Norm positive coordinates
-    assert Vector3(2, 4, 4).norm, 2 == 6
+    assert abs(Vector3(2, 4, 4).norm - 6.0) < 1e-9
 
     # Norm negative coordinates
-    assert Vector3(-2, -4, 4).norm, 2 == 6
+    assert abs(Vector3(-2, -4, 4).norm - 6.0) < 1e-9
 
 
 def test_eq():
@@ -67,11 +88,26 @@ def test_subtract():
 
 def test_scalar_product():
     """Test scalar_product() method."""
-    # Scalar product of v1 = [1, 1] and v2 = [1, -1]
-    assert Vector3(1, 1, 2).scalar_product(Vector3(1, -1, 2)) == 4
+    # Check scalar product values
+    assert abs(Vector3(1, 1, 2).scalar_product(Vector3(1, -1, 2)) - 4) < 1e-9
     # Use wrong type
     with pytest.raises(TypeError, match=r".* is not a Vector3.*"):
         Vector3(1, 1, 1).scalar_product(0)
+
+    # Additional tests
+    v1 = Vector3(1, -1, 2)
+    v2 = Vector3(1, 2, 3)
+    v3 = Vector3(4, 5, 6)
+
+    assert abs((v1.scalar_product(v2) - 5)) < 1e-9
+    assert abs((v3.scalar_product(v2) - 32)) < 1e-9
+    assert abs((v3.scalar_product(v1) - 11)) < 1e-9
+
+    # Check orthogonal vectors
+    v5 = Vector3(1, 0, 0)
+    v6 = Vector3(0, 1, 0)
+
+    assert abs((v5.scalar_product(v6))) < 1e-9
 
 
 def test_multiply_by_scalar():
@@ -82,6 +118,9 @@ def test_multiply_by_scalar():
     assert Vector3(1, 1, 1).multiply_by_scalar(2) == Vector3(2, 2, 2)
     # Multiply by float
     assert Vector3(1, 1, 1).multiply_by_scalar(0.5) == Vector3(0.5, 0.5, 0.5)
+    # Multiply by wrong type
+    with pytest.raises(TypeError, match=r".* is not a float or int.*"):
+        Vector3(1, 1, 1).multiply_by_scalar("z")
 
 
 def test_multiply_by_matrix():
@@ -90,9 +129,29 @@ def test_multiply_by_matrix():
     vec = Vector3(0, 0, 1)
     mat = Matrix3x3(1, 0, 1, 0, 1, 2, 0, 0, 1)
     assert vec.multiply_by_matrix(mat) == Vector3(1, 2, 1)
+
     # Multiply by wrong type
     with pytest.raises(TypeError, match=r".* is not a Matrix3x3.*"):
         Vector3(0, 0, 1).multiply_by_matrix(Vector3(1, 1, 1))
+
+    # Additional tests
+    mat1 = HomothetyMatrix3x3(2)
+    mat2 = HomothetyMatrix3x3(0)
+    mat3 = TranslationMatrix3x3(1, 2)
+
+    # Test 1
+    v1 = Vector3(0, 3, 1)
+
+    assert v1.multiply_by_matrix(mat1) == Vector3(0, 6, 1)
+    assert v1.multiply_by_matrix(mat2) == Vector3(0, 0, 1)
+    assert v1.multiply_by_matrix(mat3) == Vector3(1, 5, 1)
+
+    # Test 2
+    v2 = Vector3(1, 2, 3)
+
+    assert v2.multiply_by_matrix(mat1) == Vector3(2, 4, 3)
+    assert v2.multiply_by_matrix(mat2) == Vector3(0, 0, 3)
+    assert v2.multiply_by_matrix(mat3) == Vector3(4, 8, 3)
 
 
 def test_normalize():

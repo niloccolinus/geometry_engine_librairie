@@ -1,7 +1,7 @@
 """Tests for verifying proper Vector functionality."""
 
 import pytest
-from Mathy import Vector3, HomogeneousVector3, Matrix3x3
+from Mathy import Vector3, HomogeneousVector3, Matrix3x3, Vector4
 
 
 def test_norm():
@@ -102,6 +102,29 @@ def test_normalize():
     # Norm == 0
     with pytest.raises(ValueError, match=r"Cannot normalize a zero vector.*"):
         Vector3(0, 0, 0).normalize()
+
+
+def test_cross_product():
+    """Test cross_product() method."""
+    # Canonical basis
+    v1 = Vector3(1, 0, 0)
+    v2 = Vector3(0, 1, 0)
+    assert v1.cross_product(v2) == Vector3(0, 0, 1)
+
+    # Random vectors
+    v3 = Vector3(3, -5, 8)
+    v4 = Vector3(12, 7, 2)
+    assert v3.cross_product(v4) == Vector3(-66, 90, 81)
+
+    # Wrong type
+    with pytest.raises(TypeError, match=r".* is not a Vector3.*"):
+        Vector3(1, 1, 1).cross_product(0)
+
+
+def test_homogenize():
+    """Test homogenize() method."""
+    from Mathy import Vector3
+    assert Vector3(3, -4, 5).homogenize() == Vector4(3, -4, 5, 1)
 
 
 def test_homogeneous_vector3():

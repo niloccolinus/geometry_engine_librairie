@@ -20,6 +20,8 @@ from .matrix4x4 import HomothetyMatrix4x4
 from .matrix4x4 import RotationMatrix4x4_x
 from .matrix4x4 import RotationMatrix4x4_y
 from .matrix4x4 import RotationMatrix4x4_z
+from .matrix4x4 import AnisotropicMatrix4x4
+from .matrix4x4 import TotalRotationMatrix4x4
 
 __all__ = [
     "Renderer",
@@ -45,5 +47,7 @@ __all__ = [
     "HomothetyMatrix4x4",
     "RotationMatrix4x4_x",
     "RotationMatrix4x4_y",
-    "RotationMatrix4x4_z"
+    "RotationMatrix4x4_z",
+    "AnisotropicMatrix4x4",
+    "TotalRotationMatrix4x4"
 ]

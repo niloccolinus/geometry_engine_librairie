@@ -32,7 +32,7 @@ class Matrix4x4:
         if isinstance(other, Matrix4x4):
             for i in range(4):
                 for j in range(4):
-                    if self.matrix[i][j] != other.matrix[i][j]:
+                    if abs(self.matrix[i][j] - other.matrix[i][j]) >= 1e-9:
                         return False
             return True
         else:
@@ -221,3 +221,19 @@ class HomothetyMatrix4x4(Matrix4x4):
             0, 0, 0, 1
         )
         self.k = k
+
+
+class AnisotropicMatrix4x4(Matrix4x4):
+    """A class to represent an anisotropic scaling matrix."""
+
+    def __init__(self, a, b, c):
+        """Initialize an anisotropic scaling matrix."""
+        super().__init__(
+            a, 0, 0, 0,
+            0, b, 0, 0,
+            0, 0, c, 0,
+            0, 0, 0, 1
+        )
+        self.a = a
+        self.b = b
+        self.c = c

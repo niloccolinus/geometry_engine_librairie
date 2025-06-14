@@ -6,9 +6,12 @@ class Vector3:
 
     def __init__(self, x: float | int, y: float | int, z: float | int):
         """Initialize a 3D vector with the given x and y components."""
-        self.x = x
-        self.y = y
-        self.z = z
+        if all(isinstance(i, (int, float)) for i in [x, y, z]):
+            self.x = x
+            self.y = y
+            self.z = z
+        else:
+            raise TypeError("All components must be floats or ints.")
 
     @property
     def norm(self) -> float:
@@ -18,8 +21,9 @@ class Vector3:
     def __eq__(self, other: 'Vector3') -> bool:
         """Check if two vectors are equal."""
         if isinstance(other, Vector3):
-            return ((self.x == other.x) and (self.y == other.y)
-                    and (self.z == other.z))
+            return ((abs(self.x - other.x) < 1e-9)
+                    and (abs(self.y - other.y) < 1e-9)
+                    and (abs(self.z - other.z) < 1e-9))
         else:
             raise TypeError(f"{other} is not a Vector3")
 
@@ -56,7 +60,10 @@ class Vector3:
 
     def multiply_by_scalar(self, factor: float | int) -> 'Vector3':
         """Multiply the vector by a scalar and return the resulting Vector3."""
-        return Vector3(self.x * factor, self.y * factor, self.z * factor)
+        if isinstance(factor, (float, int)):
+            return Vector3(self.x * factor, self.y * factor, self.z * factor)
+        else:
+            raise TypeError(f"{factor} is not a float or int.")
 
     def multiply_by_matrix(self, matrix) -> 'Vector3':
         """
@@ -81,15 +88,15 @@ class Vector3:
         The new vector has the same direction and a length of 1.
         """
         n = self.norm
-        if n == 0:
+        if abs(n) < 1e-9:
             raise ValueError("Cannot normalize a zero vector.")
         return Vector3(self.x / n, self.y / n, self.z / n)
 
     def cross_product(self, other: 'Vector3'):
         """Generate the cross product of 2 3D vectors."""
         if isinstance(other, Vector3):
-            return Vector3(self.y * other.w - self.w * other.y,
-                           self.w * other.x - self.x * other.w,
+            return Vector3(self.y * other.z - self.z * other.y,
+                           self.z * other.x - self.x * other.z,
                            self.x * other.y - self.y * other.x)
         else:
             raise TypeError(f"{other} is not a Vector3")

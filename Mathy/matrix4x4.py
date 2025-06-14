@@ -230,17 +230,17 @@ class HomothetyMatrix4x4(Matrix4x4):
 class AnisotropicMatrix4x4(Matrix4x4):
     """A class to represent an anisotropic scaling matrix."""
 
-    def __init__(self, a, b, c):
+    def __init__(self, sx, sy, sz):
         """Initialize an anisotropic scaling matrix."""
         super().__init__(
-            a, 0, 0, 0,
-            0, b, 0, 0,
-            0, 0, c, 0,
+            sx, 0, 0, 0,
+            0, sy, 0, 0,
+            0, 0, sz, 0,
             0, 0, 0, 1
         )
-        self.a = a
-        self.b = b
-        self.c = c
+        self.sx = sx
+        self.sy = sy
+        self.sz = sz
 
 
 class TotalRotationMatrix4x4(Matrix4x4):
@@ -251,7 +251,7 @@ class TotalRotationMatrix4x4(Matrix4x4):
                  rot_y: RotationMatrix4x4_y,
                  rot_z: RotationMatrix4x4_z):
         """Initialize a multi-axis rotation matrix."""
-        self.matrix = (rot_x.prod(rot_y)).prod(rot_z)
+        self.matrix = (rot_z.prod(rot_y)).prod(rot_x)
         self.rot_x = rot_x
         self.rot_y = rot_y
         self.rot_z = rot_z

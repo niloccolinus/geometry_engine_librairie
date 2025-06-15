@@ -1,23 +1,28 @@
+"""A class to represent a camera in a 3D scene."""
+
 from Mathy import Vector3, Vector4, Matrix4x4
 
 
 class Camera:
     """Represents a simple 3D camera for view transformations."""
 
-    def __init__(self, position:  Vector3 = None, target: Vector3 = None, up: Vector3 = None):
+    def __init__(self, position:  Vector3 = None, target: Vector3 = None, up: Vector3 = None):  # noqa: E501
+        """Initialize a camera class."""
         self.position = position or Vector3(0, 0, 0)
         # Default target in negative Z direction (conventional)
-        self.target = Vector3(target.x, target.y, -target.z) or Vector3(0, 0, -1)
+        self.target = Vector3(target.x, target.y, -target.z) or Vector3(0, 0, -1)  # noqa: E501
         # Default up vector pointing in positive Y direction
         self.up = up or Vector3(0, 1, 0)
 
     def get_view_matrix(self):
+        """Get view matrix (camera coordinates)."""
         # Compute forward, right, and up vectors
         forward = self.target.subtract(self.position).normalize()
         right = self.up.cross_product(forward).normalize()
         up = forward.cross_product(right).normalize()
 
-        # The rotation aligns the camera's view direction with the negative Z-axis
+        # The rotation aligns the camera's view direction
+        # with the negative Z-axis
         rot = Matrix4x4(
             right.x, up.x, -forward.x, 0,
             right.y, up.y, -forward.y, 0,

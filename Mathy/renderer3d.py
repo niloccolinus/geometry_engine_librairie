@@ -20,9 +20,9 @@ class Renderer3D(object):
         for vertex in vertices:
             vertex: HomogeneousVector4 = vertex
             # Apply view transformation
-            view_vertex: HomogeneousVector4 = vertex.multiply_by_matrix(camera.get_view_matrix())
+            view_vertex: HomogeneousVector4 = vertex.multiply_by_matrix(camera.get_view_matrix())  # noqa: E501
             # Apply projection transformation
-            projected_vertex: HomogeneousVector4 = view_vertex.multiply_by_matrix(projection.get_projection_matrix())
+            projected_vertex: HomogeneousVector4 = view_vertex.multiply_by_matrix(projection.get_projection_matrix())  # noqa: E501
             # Convert to screen coordinates
             screen_vertex = projection.get_screen_coordinates(projected_vertex)
             projected_vertices.append(screen_vertex)

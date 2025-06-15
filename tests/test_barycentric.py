@@ -1,7 +1,10 @@
+"""Tests for verifying barycentric coordinates behave as expected."""
+
 from Mathy import Vector3, barycentric_coordinates
 
 
 def test_barycentric_coordinates():
+    """Run unit tests for barycentric class."""
     A = Vector3(0, 0, 0)
     B = Vector3(1, 0, 0)
     C = Vector3(0, 1, 0)
@@ -28,7 +31,7 @@ def test_barycentric_coordinates():
     u, v, w = barycentric_coordinates(P4, A, B, C)
     assert abs(u) < 1e-6 and abs(v) < 1e-6 and abs(w - 1.0) < 1e-6
 
-    # Test 5: Point outside the triangle 
+    # Test 5: Point outside the triangle
     # (should have at least one negative barycentric coordinate)
     P5 = Vector3(-0.5, -0.5, 0)
     u, v, w = barycentric_coordinates(P5, A, B, C)

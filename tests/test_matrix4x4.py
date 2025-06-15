@@ -171,7 +171,7 @@ def test_rotation_matrix_y():
     """Test RotationMatrix4x4 for 45 degrees."""
     angle_deg = 45
     theta = deg(angle_deg)
-    r = RotationMatrix4x4(angle_deg)
+    r = RotationMatrix4x4_y(angle_deg)
     expected = Matrix4x4(
         cos(theta), 0, sin(theta), 0,
         0, 1, 0, 0,
@@ -188,7 +188,7 @@ def test_rotation_matrix_z():
     """Test RotationMatrix4x4 for 45 degrees."""
     angle_deg = 45
     theta = deg(angle_deg)
-    r = RotationMatrix4x4(angle_deg)
+    r = RotationMatrix4x4_z(angle_deg)
     expected = Matrix4x4(
         cos(theta), -sin(theta), 0, 0,
         sin(theta), cos(theta), 0, 0,

@@ -1,21 +1,24 @@
+"""A function to compute barycentric coordinates."""
+
 from Mathy import Vector3
 
 
 def barycentric_coordinates(
-    P: Vector3, 
-    A: Vector3, 
-    B: Vector3, 
+    P: Vector3,
+    A: Vector3,
+    B: Vector3,
     C: Vector3
 ) -> tuple[float, float, float]:
     """
-    Compute the barycentric coordinates (lambda_A, lambda_B, lambda_C) 
+    Compute barycentric coordinates.
+
+    We look at the barycentric coordinates (lambda_A, lambda_B, lambda_C)
     of point P in the triangle defined by points A, B, C.
 
     Returns (λA, λB, λC) such that:
         P = λA * A + λB * B + λC * C
         with λA + λB + λC = 1
     """
-
     # Extract the coordinates of each point
     x, y = P.x, P.y
     xA, yA = A.x, A.y

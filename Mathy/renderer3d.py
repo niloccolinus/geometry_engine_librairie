@@ -17,7 +17,7 @@ class Renderer3D(object):
     def project_vertices(self, vertices, camera, projection):
         """Project vertices from 3D space to 2D screen space."""
         projected_vertices = []
-        for vertex  in vertices:
+        for vertex in vertices:
             vertex: HomogeneousVector4 = vertex
             # Apply view transformation
             view_vertex: HomogeneousVector4 = vertex.multiply_by_matrix(camera.get_view_matrix())

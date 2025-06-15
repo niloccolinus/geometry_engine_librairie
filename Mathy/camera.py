@@ -1,9 +1,8 @@
 from Mathy import Vector3, Vector4, Matrix4x4
 
+
 class Camera:
-    """
-    Represents a simple 3D camera for view transformations.
-    """
+    """Represents a simple 3D camera for view transformations."""
 
     def __init__(self, position:  Vector3 = None, target: Vector3 = None, up: Vector3 = None):
         self.position = position or Vector3(0, 0, 0)
@@ -37,17 +36,16 @@ class Camera:
         view_matrix = rot.prod(translation)
 
         return view_matrix
-    
+
     def look_at(self, target: Vector3):
-        """
-        Set the camera to look at a specific target point in 3D space.
-        """
+        """Set the camera to look at a specific target point in 3D space."""
         self.target = target
         return self.get_view_matrix()
-    
+
     def get_vertex_in_camera_space(self, vertex: Vector3):
         """
-        Transforms a vertex from world space to camera space.
+        Transform a vertex from world space to camera space.
+
         The vertex should be in world coordinates.
         """
         view_matrix = self.get_view_matrix()

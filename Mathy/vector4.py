@@ -73,7 +73,7 @@ class Vector4:
                            self.z + other.z, self.w + other.w)
         else:
             raise TypeError(f"{other} is not a Vector4")
-    
+
     def subtract(self, other: 'Vector4') -> 'Vector4':
         """
         Subtract another vector from the current vector.

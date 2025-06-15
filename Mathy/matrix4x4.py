@@ -3,7 +3,6 @@
 
 from Mathy import cos, sin, deg, Matrix3x3
 
-
 class Matrix4x4:
     """A class to represent a 4 by 4 matrix."""
 

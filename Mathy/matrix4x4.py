@@ -1,7 +1,7 @@
 """Defines a 4x4 matrix class."""
 """Defines a 4x4 matrix class."""
 
-from Mathy import cos, sin, deg, matrix3x3
+from Mathy import cos, sin, deg
 
 
 class Matrix4x4:

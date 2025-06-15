@@ -20,12 +20,6 @@ from .matrix4x4 import HomothetyMatrix4x4
 from .barycentric import barycentric_coordinates
 from .vector4 import Vector4
 from .vector4 import HomogeneousVector4
-from .matrix4x4 import Matrix4x4
-from .matrix4x4 import TranslationMatrix4x4
-from .matrix4x4 import HomothetyMatrix4x4
-from .matrix4x4 import RotationMatrix4x4_x
-from .matrix4x4 import RotationMatrix4x4_y
-from .matrix4x4 import RotationMatrix4x4_z
 from .matrix4x4 import AnisotropicMatrix4x4
 from .matrix4x4 import TotalRotationMatrix4x4
 from .renderer3d import Renderer3D

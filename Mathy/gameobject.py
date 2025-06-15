@@ -6,12 +6,13 @@ from Mathy import Transform, Renderer3D, Vector3
 class GameObject:
     """Represents a 3D object in the scene with a transform and a renderer."""
 
-    def __init__(self, name="GameObject", vertices=None, indices=None):
+    def __init__(self, vertices: list[Vector3],
+                 indices: list[int], name="GameObject"):
         """Initialize a game object."""
         self.name = name
         # 3D mesh data
-        self.vertices = vertices or []
-        self.indices = indices or []
+        self.vertices = vertices
+        self.indices = indices
         # Transform and renderer components
         self.transform = Transform()
         self.renderer = Renderer3D(self.vertices, self.indices)

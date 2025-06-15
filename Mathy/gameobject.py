@@ -15,6 +15,14 @@ class GameObject:
         # Transform and renderer components
         self.transform = Transform()
         self.renderer = Renderer3D(self.vertices, self.indices)
+        # Generate normals
+        self.normals = []
+        for i in self.indices[:-2]:
+            edge1 = self.vertices[i] - self.vertices[i + 1]
+            edge2 = self.vertices[i] - self.vertices[i + 2]
+            normal = edge1.cross_product(edge2)
+            normalized_normal = normal.normalize()
+            self.normals.append[normalized_normal]
 
 
 class Cube(GameObject):

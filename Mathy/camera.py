@@ -54,5 +54,5 @@ class Camera:
         # Convert the vertex to a 4D vector for matrix multiplication
         world_vertex = Vector4(vertex.x, vertex.y, vertex.z, 1)
         # Apply the view matrix to the vertex
-        camera_space_vertex = view_matrix.prod(world_vertex)
+        camera_space_vertex = world_vertex.multiply_by_matrix(view_matrix)
         return camera_space_vertex

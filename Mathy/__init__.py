@@ -1,7 +1,6 @@
 """Marks the current directory as a package."""
 
-from .math_utils import pi, factorial, deg, sin, cos
-from .renderer import Renderer
+from .math_utils import pi, factorial, deg, sin, cos, tan
 from .vector2 import Vector2
 from .triangle import Triangle
 from .matrix2x2 import Matrix2x2
@@ -25,9 +24,12 @@ from .matrix4x4 import TotalRotationMatrix4x4
 from .renderer3d import Renderer3D
 from .transform import Transform
 from .gameobject import GameObject
+from .renderer import Renderer
+from .gameobject import Cube
+from .camera import Camera
+from .projection import Projection
 
 __all__ = [
-    "Renderer",
     "Vector2",
     "Triangle",
     "Matrix2x2",
@@ -40,6 +42,7 @@ __all__ = [
     "deg",
     "sin",
     "cos",
+    "tan",
     "Vector3",
     "HomogeneousVector3",
     "barycentric_coordinates",
@@ -55,5 +58,9 @@ __all__ = [
     "TotalRotationMatrix4x4",
     "Renderer3D",
     "Transform",
-    "GameObject"
+    "GameObject",
+    "Renderer",
+    "Cube",
+    "Camera",
+    "Projection"
 ]

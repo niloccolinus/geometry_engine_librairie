@@ -15,7 +15,7 @@ class GameObject:
         self.indices = indices
         # Transform and renderer components
         self.transform = Transform()
-        self.renderer = Renderer3D(self.vertices, self.indices)
+        self.renderer = Renderer3D()
         # Generate vertices in homogeneous coordinates
         self.homogeneous_vertices = []
         for vertex in self.vertices:
@@ -23,13 +23,17 @@ class GameObject:
         # Generate normals
         self.normals = []
         self.homogeneous_normals = []
-        for i in self.indices[:-2]:
-            edge1 = self.vertices[i] - self.vertices[i + 1]
-            edge2 = self.vertices[i] - self.vertices[i + 2]
+        # Iterate over triangles (groups of 3 indices)
+        for t in range(0, len(self.indices) - 2, 3):
+            i0 = self.indices[t]
+            i1 = self.indices[t + 1]
+            i2 = self.indices[t + 2]
+            edge1 = self.vertices[i1].subtract(self.vertices[i0])
+            edge2 = self.vertices[i2].subtract(self.vertices[i0])
             normal = edge1.cross_product(edge2)
             normalized_normal = normal.normalize()
-            self.normals.append[normalized_normal]
-            self.homogeneous_normals.append[normalized_normal.homogenize()]
+            self.normals.append(normalized_normal)
+            self.homogeneous_normals.append(normalized_normal.homogenize())
 
 
 class Cube(GameObject):
@@ -37,8 +41,7 @@ class Cube(GameObject):
 
     def __init__(self):
         """Initialize a cubic game object."""
-        super().__init__("Cube",
-                         [Vector3(-1.0, -1.0,  1.0),
+        super().__init__([Vector3(-1.0, -1.0,  1.0),
                           Vector3(1.0, -1.0,  1.0),
                           Vector3(-1.0,  1.0,  1.0),
                           Vector3(1.0,  1.0,  1.0),

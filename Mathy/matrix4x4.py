@@ -1,11 +1,10 @@
 """Defines a 4x4 matrix class."""
-"""Defines a 4x4 matrix class."""
 
-from Mathy import cos, sin, deg
 
+from Mathy import cos, sin, deg, Matrix3x3
 
 class Matrix4x4:
-    """A class to represent a 3 by 3 matrix."""
+    """A class to represent a 4 by 4 matrix."""
 
     def __init__(
             self,
@@ -32,7 +31,7 @@ class Matrix4x4:
         if isinstance(other, Matrix4x4):
             for i in range(4):
                 for j in range(4):
-                    if self.matrix[i][j] != other.matrix[i][j]:
+                    if abs(self.matrix[i][j] - other.matrix[i][j]) >= 1e-9:
                         return False
             return True
         else:
@@ -98,18 +97,22 @@ class Matrix4x4:
         a, b, c, d = self.matrix[0]
         e, f, g, h = self.matrix[1]
         i, j, k, l_ = self.matrix[2]
-        n, o, p, q = self.matrix[3]
+        m, n, o, p = self.matrix[3]
         # The determinant of a 4x4 matrix is calculated as
-        # det = a(ei−fh)−b(di−fg)+c(dh−eg)
-        return (
-            (a * f * k * p) - (a * f * l_ * o) - (a * g * j * p) +
-            (a * g * l_ * n) + (a * h * j * o) - (a * h * k * n) -
-            (b * e * k * p) + (b * e * l_ * o) + (b * g * i * p) -
-            (b * g * l_ * m) - (b * h * i * o) + (b * h * k * m) +
-            (c * e * j * p) - (c * e * l_ * n) - (c * f * i * p) +
-            (c * f * l_ * m) + (c * h * i * n) - (c * h * j * m) -
-            (d * e * j * o) + (d * e * k * n) + (d * f * i * o) -
-            (d * f * k * m) - (d * g * i * n) + (d * g * j * m))
+        # det = a * det(mat1) − b * det(mat2) + c * det(mat3) - d * det(mat4)
+        # where mat1, mat2, mat3 and mat4 are 3x3 submatrices
+        # 1) Extract the submatrices from our 4x4 matrix
+        mat1 = Matrix3x3(f, g, h, j, k, l_, n, o, p)
+        mat2 = Matrix3x3(e, g, h, i, k, l_, m, o, p)
+        mat3 = Matrix3x3(e, f, h, i, j, l_, m, n, p)
+        mat4 = Matrix3x3(e, f, g, i, j, k, m, n, o)
+        # 2) Get the determinants of each submatrix
+        det1 = mat1.determinant()
+        det2 = mat2.determinant()
+        det3 = mat3.determinant()
+        det4 = mat4.determinant()
+        # 3) Apply the formula
+        return (a * det1 - b * det2 + c * det3 - d * det4)
 
     def round(self, decimal: int) -> 'Matrix4x4':
         """Return a rounded approximation of the matrix's contents."""
@@ -134,7 +137,7 @@ class Matrix4x4:
 
 
 class TranslationMatrix4x4(Matrix4x4):
-    """A class to represent a 3 by 3 translation matrix."""
+    """A class to represent a 4 by 4 translation matrix."""
 
     def __init__(self, a, b, c):
         """Initialize a translation matrix."""
@@ -151,7 +154,7 @@ class TranslationMatrix4x4(Matrix4x4):
 
 class RotationMatrix4x4_x(Matrix4x4):
     """
-    A class to represent a 3 by 3 rotation matrix.
+    A class to represent a 4 by 4 rotation matrix.
 
     Parameters:
         theta (float): Angle of rotation in degrees.
@@ -171,7 +174,7 @@ class RotationMatrix4x4_x(Matrix4x4):
 
 class RotationMatrix4x4_y(Matrix4x4):
     """
-    A class to represent a 3 by 3 rotation matrix.
+    A class to represent a 4 by 4 rotation matrix.
 
     Parameters:
         theta (float): Angle of rotation in degrees.
@@ -191,7 +194,7 @@ class RotationMatrix4x4_y(Matrix4x4):
 
 class RotationMatrix4x4_z(Matrix4x4):
     """
-    A class to represent a 3 by 3 rotation matrix.
+    A class to represent a 4 by 4 rotation matrix.
 
     Parameters:
         theta (float): Angle of rotation in degrees.
@@ -210,7 +213,7 @@ class RotationMatrix4x4_z(Matrix4x4):
 
 
 class HomothetyMatrix4x4(Matrix4x4):
-    """A class to represent a 3 by 3 homothety matrix."""
+    """A class to represent a 4 by 4 homothety matrix."""
 
     def __init__(self, k):
         """Initialize a homotethy matrix."""
@@ -221,3 +224,33 @@ class HomothetyMatrix4x4(Matrix4x4):
             0, 0, 0, 1
         )
         self.k = k
+
+
+class AnisotropicMatrix4x4(Matrix4x4):
+    """A class to represent an anisotropic scaling matrix."""
+
+    def __init__(self, sx, sy, sz):
+        """Initialize an anisotropic scaling matrix."""
+        super().__init__(
+            sx, 0, 0, 0,
+            0, sy, 0, 0,
+            0, 0, sz, 0,
+            0, 0, 0, 1
+        )
+        self.sx = sx
+        self.sy = sy
+        self.sz = sz
+
+
+class TotalRotationMatrix4x4(Matrix4x4):
+    """A class to represent a rotation matrix combining x, y, and z axes."""
+
+    def __init__(self,
+                 rot_x: RotationMatrix4x4_x,
+                 rot_y: RotationMatrix4x4_y,
+                 rot_z: RotationMatrix4x4_z):
+        """Initialize a multi-axis rotation matrix."""
+        self.matrix = (rot_z.prod(rot_y)).prod(rot_x)
+        self.rot_x = rot_x
+        self.rot_y = rot_y
+        self.rot_z = rot_z

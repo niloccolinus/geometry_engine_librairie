@@ -21,7 +21,7 @@ class Matrix3x3:
         if isinstance(other, Matrix3x3):
             for i in range(3):
                 for j in range(3):
-                    if self.matrix[i][j] != other.matrix[i][j]:
+                    if abs(self.matrix[i][j] - other.matrix[i][j]) >= 1e-9:
                         return False
             return True
         else:

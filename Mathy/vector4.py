@@ -58,6 +58,26 @@ class Vector4:
         else:
             raise TypeError(f"{matrix} is not a Matrix4x4")
 
+    def add(self, other: 'Vector4') -> 'Vector4':
+        """Add two vectors together and return a new Vector4."""
+        if isinstance(other, Vector4):
+            return Vector4(self.x + other.x, self.y + other.y,
+                           self.z + other.z, self.w + other.w)
+        else:
+            raise TypeError(f"{other} is not a Vector4")
+    
+    def subtract(self, other: 'Vector4') -> 'Vector4':
+        """
+        Subtract another vector from the current vector.
+
+        Return the result as a new Vector4.
+        """
+        if isinstance(other, Vector4):
+            return Vector4(self.x - other.x, self.y - other.y,
+                           self.z - other.z, self.w - other.w)
+        else:
+            raise TypeError(f"{other} is not a Vector4")
+
     def normalize(self) -> 'Vector4':
         """
         Normalize the vector.

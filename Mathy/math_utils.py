@@ -10,7 +10,6 @@ def factorial(n):
     else:
         return n * factorial(n - 1)
 
-
 def deg(x):
     """Convert degrees to radians."""
     rad = x * pi/180
@@ -37,3 +36,9 @@ def cos(x):
     for k in range(15):
         cosx += (-1)**k * x**(2*k) / factorial(2*k)
     return cosx
+
+def tan(x):
+    """Approximate tangent(x) for any x (radians) using sin and cos."""
+    if cos(x) == 0:
+        raise ValueError("Tangent is undefined for this angle (cosine is zero).")
+    return sin(x) / cos(x)

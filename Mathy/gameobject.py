@@ -1,6 +1,6 @@
 """Defines a GameObject class."""
 
-from Mathy import Transform, Renderer3D, Vector3
+from Mathy import Transform, Renderer3D, HomogeneousVector4
 
 
 class GameObject:
@@ -21,14 +21,14 @@ class Cube(GameObject):
     """A class to represent a cube."""
 
     def __init__(self):
-        """Initialize an anisotropic scaling matrix."""
+        """Initialize a cubic game object."""
         super().__init__("Cube",
-                         [Vector3(-1.0, -1.0,  1.0),
-                          Vector3(1.0, -1.0,  1.0),
-                          Vector3(-1.0,  1.0,  1.0),
-                          Vector3(1.0,  1.0,  1.0),
-                          Vector3(-1.0, -1.0, -1.0),
-                          Vector3(1.0, -1.0, -1.0),
-                          Vector3(-1.0,  1.0, -1.0),
-                          Vector3(1.0,  1.0, -1.0,)],
+                         [HomogeneousVector4(-1.0, -1.0,  1.0),
+                          HomogeneousVector4(1.0, -1.0,  1.0),
+                          HomogeneousVector4(-1.0,  1.0,  1.0),
+                          HomogeneousVector4(1.0,  1.0,  1.0),
+                          HomogeneousVector4(-1.0, -1.0, -1.0),
+                          HomogeneousVector4(1.0, -1.0, -1.0),
+                          HomogeneousVector4(-1.0,  1.0, -1.0),
+                          HomogeneousVector4(1.0,  1.0, -1.0,)],
                          [0, 1, 2, 3, 7, 1, 5, 4, 7, 6, 2, 4, 0, 1])

@@ -1,6 +1,6 @@
 """Defines a 3x3 matrix class."""
 
-from Mathy import cos, sin, deg
+from Mathy import cos, sin, rad
 
 
 class Matrix3x3:
@@ -133,7 +133,7 @@ class RotationMatrix3x3(Matrix3x3):
 
     def __init__(self, t_degrees):
         """Initialize a rotation matrix."""
-        theta = deg(t_degrees)  # Convert degrees to radians
+        theta = rad(t_degrees)  # Convert degrees to radians
         super().__init__(
             cos(theta), -sin(theta), 0,
             sin(theta), cos(theta), 0,

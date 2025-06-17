@@ -11,7 +11,7 @@ def factorial(n):
         return n * factorial(n - 1)
 
 
-def deg(x):
+def rad(x):
     """Convert degrees to radians."""
     rad = x * pi/180
     return rad

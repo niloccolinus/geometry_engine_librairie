@@ -47,8 +47,8 @@ matrix3 = Matrix4x4(
 def test_repr():
     """Test __repr__() method."""
     assert matrix0.__repr__() == "Matrix4x4([\n [0, 0, 0, 0],\n [0, 0, 0, 0],\n [0, 0, 0, 0],\n [0, 0, 0, 0]\n])"  # noqa: E501
-    assert matrix1.__repr__() == "Matrix4x4([\n [1, 2, 3, 4],\n [5, 6, 7 ,8],\n [9, 10, 11, 12],\n [13, 14, 15, 16]\n])"  # noqa: E501
-    assert matrix2.__repr__() == "Matrix4x4([\n [13, 14, 15, 16],\n[12, 11, 10, 9],\n [8, 7, 6, 5],\n [4, 3, 2, 1]\n])"  # noqa: E501
+    assert matrix1.__repr__() == "Matrix4x4([\n [1, 2, 3, 4],\n [5, 6, 7, 8],\n [9, 10, 11, 12],\n [13, 14, 15, 16]\n])"  # noqa: E501
+    assert matrix2.__repr__() == "Matrix4x4([\n [16, 15, 14, 13],\n [12, 11, 10, 9],\n [8, 7, 6, 5],\n [4, 3, 2, 1]\n])"  # noqa: E501
 
 
 def test_eq():

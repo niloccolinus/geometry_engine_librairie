@@ -84,7 +84,7 @@ class Triangle:
         cx, cy = self.p3
 
         d = 2 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))
-        if d == 0:
+        if abs(d) < 1e-9:
             return None, float('inf')
 
         ux = ((ax**2 + ay**2) * (by - cy) + (bx**2 + by**2) * (cy - ay)

@@ -122,8 +122,8 @@ class Matrix4x4:
             for i in range(4):
                 for j in range(4):
                     res[i][j] = round(self.matrix[i][j], decimal)
-                    if res[i][j] == -0.0:
-                        res[i][j] = abs(res[i][j])
+                    if abs(res[i][j]) < 10**(-decimal):
+                        res[i][j] = 0.0
             return Matrix4x4(
                 res[0][0], res[0][1], res[0][2], res[0][3],
                 res[1][0], res[1][1], res[1][2], res[1][3],

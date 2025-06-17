@@ -53,7 +53,7 @@ def test_prod():
 
 def test_determinant():
     """Test determinant() method."""
-    assert Matrix2x2(1, 2, 2, 3).determinant() == -1.0
+    assert abs(Matrix2x2(1, 2, 2, 3).determinant() - (-1.0)) < 1e-9
 
 
 def test_solve_system():

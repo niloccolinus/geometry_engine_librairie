@@ -27,7 +27,7 @@ def barycentric_coordinates(
 
     # Compute the determinant of the system
     det = (xA - xC)*(yB - yC) - (xB - xC)*(yA - yC)
-    if det == 0:
+    if abs(det) < 1e-9:
         raise ValueError("Degenerate triangle: points are collinear")
 
     # Apply Cramer's rule to compute λA and λB

@@ -17,7 +17,8 @@ class Vector2:
     def __eq__(self, other: 'Vector2') -> bool:
         """Check if two vectors are equal."""
         if isinstance(other, Vector2):
-            return (self.x == other.x) and (self.y == other.y)
+            return (abs(self.x - other.x) < 1e-9
+                    and abs(self.y - other.y) < 1e-9)
         else:
             raise TypeError(f"{other} is not a Vector2")
 
@@ -91,7 +92,7 @@ class Vector2:
         The new vector has the same direction and a length of 1.
         """
         n = self.norm
-        if n == 0:
+        if abs(n) < 1e-9:
             raise ValueError("Cannot normalize a zero vector.")
         return Vector2(self.x / n, self.y / n)
 

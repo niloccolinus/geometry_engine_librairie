@@ -47,7 +47,7 @@ class Projection:
         which range from -1 to 1.
         """
         # Perform perspective division
-        if vertex.w != 0:
+        if abs(vertex.w) > 1e-9:
             x_ndc = vertex.x / vertex.w
             y_ndc = vertex.y / vertex.w
             z = vertex.z / vertex.w

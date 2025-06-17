@@ -18,6 +18,21 @@ Ce répertoire contient la bibliothèque principale du moteur de géométrie.
   - `HomothetyMatrix3x3` : génère une matrice d’homothétie pour une mise à l’échelle selon un facteur donné.
 - `Triangle` : représente un triangle défini par trois sommets, avec des méthodes pour calculer le périmètre, l'aire, calculer le cercle circonscrit et son rayon et vérifier si le triangle est rectangle.
 - `Renderer` : classe dédiée à l'affichage graphique avec Pygame, permettant de dessiner des objets géométriques comme des points, des segments, des triangles, des cercles et du texte.
+- `Matrix4x4` : classe de base pour représenter une matrice 4×4, utilisée pour la géométrie spatiale. Plusieurs classes filles héritent de cette classe : 
+  - `TranslationMatrix4x4` : génère une matrice de translation à partir d’un vecteur de déplacement (x, y, z).
+  - `RotationMatrix4x4_x`, `RotationMatrix4x4_y`, `RotationMatrix4x4_z` : génèrent une matrice de rotation pour un angle donné (en degrés) et selon un axe donné (x, y ou z).
+  - `TotalRotationMatrix4x4` : génère une matrice de rotation qui combine les axes x, y et z.
+  - `HomothetyMatrix4x4` : génère une matrice d’homothétie pour une mise à l’échelle selon un facteur donné.
+  - `AnisotropicMatrix4x4` : génère une matrice de mise à l'échelle anisotrope.
+- `Vector4` : représente un vecteur dans ℝ<sup>4</sup>. Une classe fille qui hérite de cette classe peut être utilisée pour manipuler des coordonnées homogènes dans ℝ³ : 
+  - `HomogeneousVector4` : génère un vecteur en coordonnées homogènes à partir des coordonnées (x, y, z) d'un vecteur dans ℝ³.
+- `barycentric_coordinates` : fonction qui permet de calculer les coordonnées barycentriques d'un point pour un triangle donné.
+- `GameObject` : inspirée de la classe GameObject du moteur de jeu Unity, cette classe contient les informations permttant de générer un maillage 3D. Une classe fille hérite de cette classe :
+  - `Cube` : génère le maillage 3D d'un `GameObject` cubique. 
+- `Transform` : inspirée de la classe Transform de Unity, cette classe gère les informations de géométrie d'un `GameObject`(position, rotation, échelle).
+- `Renderer3D` : cette classe gère les informations de rendu d'un `GameObject`, notamment la conversion des coordonnées locales en coordonnées monde, et leur projection à l'écran.
+- `Camera`: cette classe simule la présence d'une caméra dans une scène 3D.
+- `Projection` : cette classe permet la projection de coordonnées 3D dans un espace 2D.
 
 ## Tests
 

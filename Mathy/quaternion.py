@@ -61,14 +61,17 @@ class Quaternion:
             raise TypeError(f"{other} is not a Quaternion")
 
     def euler_to_quaternion(angle_x, angle_y, angle_z) -> 'Quaternion':
+        """Convert Euler angles (in radians) to a quaternion."""
         from Mathy import cos, sin
-        q1 = Quaternion(cos(angle_x/2), sin(angle_x/2), 0, 0)
-        q2 = Quaternion(cos(angle_y/2), 0, sin(angle_y/2), 0)
-        q3 = Quaternion(cos(angle_z/2), 0, 0, sin(angle_z/2))
 
-        return q3.prod(q2).prod(q1)
+        qx = Quaternion(cos(angle_x/2), sin(angle_x/2), 0, 0)
+        qy = Quaternion(cos(angle_y/2), 0, sin(angle_y/2), 0)
+        qz = Quaternion(cos(angle_z/2), 0, 0, sin(angle_z/2))
+
+        return qz.prod(qy).prod(qx)  # q = qz * qy * qx (Z-Y-X order)
 
     def to_euler(self) -> tuple[float, float, float]:
+        """Convert quaternion to Euler angles."""
         w, x, y, z = self.w, self.x, self.y, self.z
         angle_x = math.atan2(2*(w*x + y*z), 1 - 2*(x**2 + y**2))  # roll
         angle_y = math.asin(2*(w*y - z*x))                        # pitch
@@ -77,7 +80,9 @@ class Quaternion:
         return (angle_x, angle_y, angle_z)
 
     def to_rotation_matrix(self) -> 'Matrix4x4':
+        """Convert quaternion to rotation matrix."""
         from Mathy import Matrix4x4
+        
         q = self.normalize()
         w, x, y, z = q.w, q.x, q.y, q.z
     

@@ -9,8 +9,8 @@ class Quaternion:
                  z: float | int):
         """Initialize a quaternion with the given values."""
         self.w = w
-        self.x = x 
-        self.y = y 
+        self.x = x
+        self.y = y
         self.z = z
 
     @property
@@ -38,10 +38,14 @@ class Quaternion:
     def prod(self, other: 'Quaternion') -> 'Quaternion':
         """Multiply two quaternions together and return a new Quaternion."""
         if isinstance(other, Quaternion):
-            return Quaternion(
-                        self.w * (other.w + other.x + other.y + other.z) +
-                        self.x * (other.w + other.x + other.y + other.z) +
-                        self.y * (other.w + other.x + other.y + other.z) +
-                        self.z * (other.w + other.x + other.y + other.z))
+            w1, x1, y1, z1 = self.w, self.x, self.y, self.z
+            w2, x2, y2, z2 = other.w, other.x, other.y, other.z
+
+            w = w1 * w2 - x1 * x2 - y1 * y2 - z1 * z2
+            x = w1 * x2 + x1 * w2 + y1 * z2 - z1 * y2
+            y = w1 * y2 - x1 * z2 + y1 * w2 + z1 * x2
+            z = w1 * z2 + x1 * y2 - y1 * x2 + z1 * w2
+
+            return Quaternion(w, x, y, z)
         else:
             raise TypeError(f"{other} is not a Quaternion")

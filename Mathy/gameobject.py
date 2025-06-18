@@ -22,18 +22,22 @@ class GameObject:
             self.homogeneous_vertices.append(vertex.homogenize())
         # Generate normals
         self.normals = []
+        # Generate edges
+        self.edges = []
         self.homogeneous_normals = []
         # Iterate over triangles (groups of 3 indices)
-        for t in range(0, len(self.indices) - 2, 3):
+        for t in range(0, len(self.indices) - 2, 1):
             i0 = self.indices[t]
             i1 = self.indices[t + 1]
             i2 = self.indices[t + 2]
             edge1 = self.vertices[i1].subtract(self.vertices[i0])
             edge2 = self.vertices[i2].subtract(self.vertices[i0])
             normal = edge1.cross_product(edge2)
-            normalized_normal = normal.normalize()
-            self.normals.append(normalized_normal)
-            self.homogeneous_normals.append(normalized_normal.homogenize())
+            # normalized_normal = normal.normalize()
+            self.edges.append((self.vertices[i0], self.vertices[i1]))
+            self.edges.append((self.vertices[i1], self.vertices[i2]))
+            # self.normals.append(normalized_normal)
+            # self.homogeneous_normals.append(normalized_normal.homogenize())
 
 
 class Cube(GameObject):
@@ -42,11 +46,24 @@ class Cube(GameObject):
     def __init__(self):
         """Initialize a cubic game object."""
         super().__init__([Vector3(-1.0, -1.0,  1.0),
-                          Vector3(1.0, -1.0,  1.0),
-                          Vector3(-1.0,  1.0,  1.0),
-                          Vector3(1.0,  1.0,  1.0),
-                          Vector3(-1.0, -1.0, -1.0),
-                          Vector3(1.0, -1.0, -1.0),
-                          Vector3(-1.0,  1.0, -1.0),
-                          Vector3(1.0,  1.0, -1.0,)],
-                         [0, 1, 2, 3, 7, 1, 5, 4, 7, 6, 2, 4, 0, 1])
+                  Vector3(1.0, -1.0,  1.0),
+                  Vector3(-1.0,  1.0,  1.0),
+                  Vector3(1.0,  1.0,  1.0),
+                  Vector3(-1.0, -1.0, -1.0),
+                  Vector3(1.0, -1.0, -1.0),
+                  Vector3(-1.0,  1.0, -1.0),
+                  Vector3(1.0,  1.0, -1.0)],
+                 [
+                     0, 1,  # front bottom edge
+                     1, 3,  # front right edge
+                     3, 2,  # front top edge
+                     2, 0,  # front left edge
+                     4, 5,  # back bottom edge
+                     5, 7,  # back right edge
+                     7, 6,  # back top edge
+                     6, 4,  # back left edge
+                     0, 4,  # left bottom edge
+                     1, 5,  # right bottom edge
+                     2, 6,  # left top edge
+                     3, 7   # right top edge
+                 ])

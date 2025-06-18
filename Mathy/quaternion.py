@@ -26,3 +26,22 @@ class Quaternion:
     def inverse(self) -> 'Quaternion':
         """Calculate the inverse of the quaternion."""
         return self.conjugate / self.norm**2
+
+    def add(self, other: 'Quaternion') -> 'Quaternion':
+        """Add two quaternions together and return a new Quaternion."""
+        if isinstance(other, Quaternion):
+            return Quaternion(self.w + other.w, self.x + other.x,
+                              self.y + other.y, self.z + other.z)
+        else:
+            raise TypeError(f"{other} is not a Quaternion")
+
+    def prod(self, other: 'Quaternion') -> 'Quaternion':
+        """Multiply two quaternions together and return a new Quaternion."""
+        if isinstance(other, Quaternion):
+            return Quaternion(
+                        self.w * (other.w + other.x + other.y + other.z) +
+                        self.x * (other.w + other.x + other.y + other.z) +
+                        self.y * (other.w + other.x + other.y + other.z) +
+                        self.z * (other.w + other.x + other.y + other.z))
+        else:
+            raise TypeError(f"{other} is not a Quaternion")

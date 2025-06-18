@@ -1,5 +1,8 @@
 """A class to represent a quaternion."""
 
+import math
+from Mathy import Matrix4x4
+
 
 class Quaternion:
     def __init__(self, 
@@ -49,3 +52,20 @@ class Quaternion:
             return Quaternion(w, x, y, z)
         else:
             raise TypeError(f"{other} is not a Quaternion")
+
+    def euler_to_quaternion(angle_x, angle_y, angle_z) -> 'Quaternion':
+        from Mathy import cos, sin
+        q1 = Quaternion(cos(angle_x/2), sin(angle_x/2), 0, 0)
+        q2 = Quaternion(cos(angle_y/2), 0, sin(angle_y/2), 0)
+        q3 = Quaternion(cos(angle_z/2), 0, 0, sin(angle_z/2))
+
+        return q3.prod(q2).prod(q1)
+
+    def to_euler(self) -> tuple[float, float, float]:
+        w, x, y, z = self
+        angle_x = math.atan2(2(w*x + y*z), 1 - 2(x**2 + y**2))
+        angle_y = math.asin(2(w*y - z*x))
+        angle_z = math.atan2(2(w*z + x*y), 1 - 2(y**2 + z**2))
+
+        return tuple[angle_x, angle_y, angle_z]
+

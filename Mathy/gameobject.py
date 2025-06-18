@@ -25,7 +25,6 @@ class GameObject:
         # Generate edges
         self.edges = []
         self.homogeneous_normals = []
-        # Iterate over triangles (groups of 3 indices)
         for t in range(0, len(self.indices) - 2, 1):
             i0 = self.indices[t]
             i1 = self.indices[t + 1]
@@ -54,16 +53,16 @@ class Cube(GameObject):
                   Vector3(-1.0,  1.0, -1.0),
                   Vector3(1.0,  1.0, -1.0)],
                  [
-                     0, 1,  # front bottom edge
-                     1, 3,  # front right edge
-                     3, 2,  # front top edge
-                     2, 0,  # front left edge
-                     4, 5,  # back bottom edge
-                     5, 7,  # back right edge
-                     7, 6,  # back top edge
-                     6, 4,  # back left edge
-                     0, 4,  # left bottom edge
-                     1, 5,  # right bottom edge
-                     2, 6,  # left top edge
-                     3, 7   # right top edge
+                     0, 1,  # front bottom edge (AB)
+                     1, 3,  # front right edge (BD)
+                     3, 2,  # front top edge (DC)
+                     2, 0,  # front left edge (CA)
+                     4, 5,  # back bottom edge (EF)
+                     5, 7,  # back right edge (FH)
+                     7, 6,  # back top edge (HG)
+                     6, 4,  # back left edge (GE)
+                     0, 4,  # left bottom edge (AE)
+                     1, 5,  # right bottom edge (BF)
+                     2, 6,  # left top edge (CG)
+                     3, 7   # right top edge (DH)
                  ])

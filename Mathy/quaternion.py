@@ -30,6 +30,13 @@ class Quaternion:
         """Calculate the inverse of the quaternion."""
         return self.conjugate / self.norm**2
 
+    def normalize(self) -> 'Quaternion':
+        """Return a normalized (unit) quaternion with the same orientation."""
+        n = self.norm
+        if n == 0:
+            raise ValueError("Cannot normalize a zero quaternion.")
+        return Quaternion(self.w / n, self.x / n, self.y / n, self.z / n)
+
     def add(self, other: 'Quaternion') -> 'Quaternion':
         """Add two quaternions together and return a new Quaternion."""
         if isinstance(other, Quaternion):
@@ -62,10 +69,21 @@ class Quaternion:
         return q3.prod(q2).prod(q1)
 
     def to_euler(self) -> tuple[float, float, float]:
-        w, x, y, z = self
-        angle_x = math.atan2(2(w*x + y*z), 1 - 2(x**2 + y**2))
-        angle_y = math.asin(2(w*y - z*x))
-        angle_z = math.atan2(2(w*z + x*y), 1 - 2(y**2 + z**2))
+        w, x, y, z = self.w, self.x, self.y, self.z
+        angle_x = math.atan2(2*(w*x + y*z), 1 - 2*(x**2 + y**2))  # roll
+        angle_y = math.asin(2*(w*y - z*x))                        # pitch
+        angle_z = math.atan2(2*(w*z + x*y), 1 - 2*(y**2 + z**2))  # yaw
 
-        return tuple[angle_x, angle_y, angle_z]
+        return (angle_x, angle_y, angle_z)
 
+    def to_rotation_matrix(self) -> 'Matrix4x4':
+        from Mathy import Matrix4x4
+        q = self.normalize()
+        w, x, y, z = q.w, q.x, q.y, q.z
+    
+        return Matrix4x4(
+            1 - 2*(y**2 + z**2), 2*(x*y - w*z),       2*(x*z + w*y),       0,
+            2*(x*y + w*z),       1 - 2*(x**2 + z**2), 2*(y*z - w*x),       0,
+            2*(x*z - w*y),       2*(y*z + w*x),       1 - 2*(x**2 + y**2), 0,
+            0,                   0,                   0,                   1
+        )

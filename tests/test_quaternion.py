@@ -1,6 +1,6 @@
 """Tests for verifying proper Quaternion functionality."""
 
-from Mathy import Quaternion, is_close
+from Mathy import Quaternion, is_close, deg_to_rad, cos, sin
 import pytest
 
 
@@ -46,3 +46,26 @@ def test_inverse():
     q = Quaternion(1, 2, 3, 4)
     assert q.inverse == q.conjugate / q.norm**2
 
+
+def test_euler_to_quaternion():
+    """Test euler_to_quaternion() method."""
+    angles = (deg_to_rad(30), deg_to_rad(45), deg_to_rad(60))
+    q = Quaternion.euler_to_quaternion(*angles)
+
+    assert is_close(q.norm, 1.0)
+
+
+def test_quaternion_to_euler():
+    """Test to_euler() method."""
+    # Quaternion representing rotation of 90° (pi/2 rad) around Z axis
+    # cos(θ/2), 0, 0, sin(θ/2)
+    q = Quaternion(cos(deg_to_rad(45)), 0, 0, sin(deg_to_rad(45)))  
+    angles = q.to_euler()
+
+    expected_x = 0  # no roll
+    expected_y = 0  # no pitch
+    expected_z = deg_to_rad(90)  # yaw of 90 degrees
+
+    assert is_close(angles[0], expected_x)
+    assert is_close(angles[1], expected_y)
+    assert is_close(angles[2], expected_z)

@@ -7,7 +7,8 @@ from Mathy import (TranslationMatrix4x4,
                    RotationMatrix4x4_z,
                    TotalRotationMatrix4x4,
                    HomothetyMatrix4x4,
-                   AnisotropicMatrix4x4)
+                   AnisotropicMatrix4x4,
+                   Quaternion)
 
 
 class Transform:
@@ -23,12 +24,17 @@ class Transform:
         self.transform_matrix = self.transform_matrix.prod(translation)
 
     def rotate(self, angle_x, angle_y, angle_z):
-        """Apply rotation."""
+        """Apply rotation using Euler angles."""
         rot_x = RotationMatrix4x4_x(angle_x)
         rot_y = RotationMatrix4x4_y(angle_y)
         rot_z = RotationMatrix4x4_z(angle_z)
         rotation = TotalRotationMatrix4x4(rot_x, rot_y, rot_z)
         self.transform_matrix = self.transform_matrix.prod(rotation)
+
+    def rotate_quaternion(self, quaternion: Quaternion):
+        """Apply rotation using Quaternion."""
+        rotation_matrix = quaternion.to_rotation_matrix()
+        self.transform_matrix = self.transform_matrix.prod(rotation_matrix)
 
     def homothetic_scale(self, k):
         """Apply homothety."""

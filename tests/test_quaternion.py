@@ -1,6 +1,6 @@
 """Tests for verifying proper Quaternion functionality."""
 
-from Mathy import Quaternion, is_close, deg_to_rad, cos, sin
+from Mathy import Matrix4x4, Quaternion, is_close, deg_to_rad, cos, sin
 import pytest
 
 
@@ -57,9 +57,9 @@ def test_euler_to_quaternion():
 
 def test_quaternion_to_euler():
     """Test to_euler() method."""
-    # Quaternion representing rotation of 90° (pi/2 rad) around Z axis
-    # cos(θ/2), 0, 0, sin(θ/2)
-    q = Quaternion(cos(deg_to_rad(45)), 0, 0, sin(deg_to_rad(45)))  
+    # Quaternion for 90° rotation around Z: (cos(θ/2), 0, 0, sin(θ/2))
+    theta = deg_to_rad(90)
+    q = Quaternion(cos(theta / 2), 0, 0, sin(theta / 2))  
     angles = q.to_euler()
 
     expected_x = 0  # no roll
@@ -69,3 +69,20 @@ def test_quaternion_to_euler():
     assert is_close(angles[0], expected_x)
     assert is_close(angles[1], expected_y)
     assert is_close(angles[2], expected_z)
+
+
+def test_quaternion_to_rotation_matrix():
+    """Test to_rotation_matrix() method."""
+    # Quaternion for 90° rotation around Z: (cos(θ/2), 0, 0, sin(θ/2))
+    theta = deg_to_rad(90)
+    q = Quaternion(cos(theta / 2), 0, 0, sin(theta / 2))
+
+    # Expected rotation matrix around Z axis (homogeneous coordinates)
+    expected = Matrix4x4(
+        0, -1, 0, 0,
+        1,  0, 0, 0,
+        0,  0, 1, 0,
+        0,  0, 0, 1
+    )
+    actual = q.to_rotation_matrix()
+    assert actual == expected

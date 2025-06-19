@@ -6,7 +6,7 @@ from Mathy import (
     TranslationMatrix3x3,
     RotationMatrix3x3,
     HomothetyMatrix3x3,
-    rad, sin, cos
+    deg_to_rad, sin, cos
 )
 
 # Example matrix 0 (zero matrix)
@@ -141,7 +141,7 @@ def test_translation_matrix():
 def test_rotation_matrix():
     """Test RotationMatrix3x3 for 45 degrees."""
     angle_deg = 45
-    theta = rad(angle_deg)
+    theta = deg_to_rad(angle_deg)
     r = RotationMatrix3x3(angle_deg)
     expected = Matrix3x3(
         cos(theta), -sin(theta), 0,

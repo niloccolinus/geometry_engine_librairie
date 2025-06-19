@@ -8,7 +8,7 @@ from Mathy import (
     RotationMatrix4x4_y,
     RotationMatrix4x4_z,
     HomothetyMatrix4x4,
-    rad, sin, cos
+    deg_to_rad, sin, cos
 )
 
 # Example matrix 0 (zero matrix)
@@ -153,7 +153,7 @@ def test_translation_matrix():
 def test_rotation_matrix_x():
     """Test RotationMatrix4x4 for 45 degrees."""
     angle_deg = 45
-    theta = rad(angle_deg)
+    theta = deg_to_rad(angle_deg)
     r = RotationMatrix4x4_x(angle_deg)
     expected = Matrix4x4(
         1, 0, 0, 0,
@@ -170,7 +170,7 @@ def test_rotation_matrix_x():
 def test_rotation_matrix_y():
     """Test RotationMatrix4x4 for 45 degrees."""
     angle_deg = 45
-    theta = rad(angle_deg)
+    theta = deg_to_rad(angle_deg)
     r = RotationMatrix4x4_y(angle_deg)
     expected = Matrix4x4(
         cos(theta), 0, sin(theta), 0,
@@ -187,7 +187,7 @@ def test_rotation_matrix_y():
 def test_rotation_matrix_z():
     """Test RotationMatrix4x4 for 45 degrees."""
     angle_deg = 45
-    theta = rad(angle_deg)
+    theta = deg_to_rad(angle_deg)
     r = RotationMatrix4x4_z(angle_deg)
     expected = Matrix4x4(
         cos(theta), -sin(theta), 0, 0,

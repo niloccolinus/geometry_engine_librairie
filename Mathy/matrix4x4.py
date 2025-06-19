@@ -1,7 +1,7 @@
 """Defines a 4x4 matrix class."""
 
 
-from Mathy import cos, sin, rad, Matrix3x3
+from Mathy import cos, sin, deg_to_rad, Matrix3x3
 
 
 class Matrix4x4:
@@ -163,7 +163,7 @@ class RotationMatrix4x4_x(Matrix4x4):
 
     def __init__(self, t_degrees):
         """Initialize a rotation matrix."""
-        theta = rad(t_degrees)  # Convert degrees to radians
+        theta = deg_to_rad(t_degrees)  # Convert degrees to radians
         super().__init__(
             1, 0, 0, 0,
             0, cos(theta), -sin(theta), 0,
@@ -183,7 +183,7 @@ class RotationMatrix4x4_y(Matrix4x4):
 
     def __init__(self, t_degrees):
         """Initialize a rotation matrix."""
-        theta = rad(t_degrees)  # Convert degrees to radians
+        theta = deg_to_rad(t_degrees)  # Convert degrees to radians
         super().__init__(
             cos(theta), 0, sin(theta), 0,
             0, 1, 0, 0,
@@ -203,7 +203,7 @@ class RotationMatrix4x4_z(Matrix4x4):
 
     def __init__(self, t_degrees):
         """Initialize a rotation matrix."""
-        theta = rad(t_degrees)  # Convert degrees to radians
+        theta = deg_to_rad(t_degrees)  # Convert degrees to radians
         super().__init__(
             cos(theta), -sin(theta), 0, 0,
             sin(theta), cos(theta), 0, 0,

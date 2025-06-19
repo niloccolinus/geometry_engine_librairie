@@ -11,10 +11,13 @@ class Quaternion:
                  y: float | int, 
                  z: float | int):
         """Initialize a quaternion with the given values."""
-        self.w = w
-        self.x = x
-        self.y = y
-        self.z = z
+        if all(isinstance(i, (int, float)) for i in [x, y, z, w]):
+            self.w = w
+            self.x = x
+            self.y = y
+            self.z = z
+        else:
+            raise TypeError("All components must be floats or ints.")
 
     def __eq__(self, other: object) -> bool:
         """Check if two quaternions are equal (with float tolerance)."""
@@ -27,6 +30,19 @@ class Quaternion:
             abs(self.z - other.z) < 1e-9
         )
 
+    def __truediv__(self, scalar: float | int) -> 'Quaternion':
+        """Divide the quaternion by a scalar."""
+        if scalar == 0:
+            raise ZeroDivisionError("Cannot divide by zero.")
+        if not isinstance(scalar, (int, float)):
+            raise TypeError(f"{scalar} is not a number.")
+        return Quaternion(
+            self.w / scalar,
+            self.x / scalar,
+            self.y / scalar,
+            self.z / scalar
+        )
+
     @property
     def norm(self) -> float:
         """Calculate the norm of the quaternion (accessible as a property)."""
@@ -36,7 +52,8 @@ class Quaternion:
     def conjugate(self) -> 'Quaternion':
         """Calculate the conjugate of the quaternion."""
         return Quaternion(self.w, -self.x, -self.y, -self.z)
-
+    
+    @property
     def inverse(self) -> 'Quaternion':
         """Calculate the inverse of the quaternion."""
         return self.conjugate / self.norm**2

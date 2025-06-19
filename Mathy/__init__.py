@@ -22,13 +22,13 @@ from .vector4 import HomogeneousVector4
 from .matrix4x4 import AnisotropicMatrix4x4
 from .matrix4x4 import TotalRotationMatrix4x4
 from .renderer3d import Renderer3D
+from .quaternion import Quaternion
 from .transform import Transform
 from .gameobject import GameObject
 from .renderer import Renderer
 from .gameobject import Cube
 from .camera import Camera
 from .projection import Projection
-from .quaternion import Quaternion
 
 __all__ = [
     "Vector2",

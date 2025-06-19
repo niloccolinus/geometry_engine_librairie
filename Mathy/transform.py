@@ -8,7 +8,8 @@ from Mathy import (TranslationMatrix4x4,
                    TotalRotationMatrix4x4,
                    HomothetyMatrix4x4,
                    AnisotropicMatrix4x4,
-                   Quaternion)
+                   Quaternion
+                   )
 
 
 class Transform:
@@ -31,7 +32,7 @@ class Transform:
         rotation = TotalRotationMatrix4x4(rot_x, rot_y, rot_z)
         self.transform_matrix = self.transform_matrix.prod(rotation)
 
-    def rotate_quaternion(self, quaternion: Quaternion):
+    def rotate_quaternion(self, quaternion: 'Quaternion'):
         """Apply rotation using Quaternion."""
         rotation_matrix = quaternion.to_rotation_matrix()
         self.transform_matrix = self.transform_matrix.prod(rotation_matrix)

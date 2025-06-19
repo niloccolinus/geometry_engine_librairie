@@ -1,6 +1,6 @@
 """Marks the current directory as a package."""
 
-from .math_utils import pi, factorial, deg_to_rad, sin, cos, tan
+from .math_utils import pi, factorial, deg_to_rad, sin, cos, tan, is_close
 from .vector2 import Vector2
 from .triangle import Triangle
 from .matrix2x2 import Matrix2x2
@@ -44,6 +44,7 @@ __all__ = [
     "sin",
     "cos",
     "tan",
+    "is_close",
     "Vector3",
     "HomogeneousVector3",
     "barycentric_coordinates",

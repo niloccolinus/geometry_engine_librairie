@@ -16,6 +16,17 @@ class Quaternion:
         self.y = y
         self.z = z
 
+    def __eq__(self, other: object) -> bool:
+        """Check if two quaternions are equal (with float tolerance)."""
+        if not isinstance(other, Quaternion):
+            return False
+        return (
+            abs(self.w - other.w) < 1e-9 and
+            abs(self.x - other.x) < 1e-9 and
+            abs(self.y - other.y) < 1e-9 and
+            abs(self.z - other.z) < 1e-9
+        )
+
     @property
     def norm(self) -> float:
         """Calculate the norm of the quaternion (accessible as a property)."""
@@ -82,7 +93,7 @@ class Quaternion:
     def to_rotation_matrix(self) -> 'Matrix4x4':
         """Convert quaternion to rotation matrix."""
         from Mathy import Matrix4x4
-        
+
         q = self.normalize()
         w, x, y, z = q.w, q.x, q.y, q.z
     

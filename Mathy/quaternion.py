@@ -32,7 +32,7 @@ class Quaternion:
 
     def __truediv__(self, scalar: float | int) -> 'Quaternion':
         """Divide the quaternion by a scalar."""
-        if scalar == 0:
+        if abs(scalar) < 1e-9:
             raise ZeroDivisionError("Cannot divide by zero.")
         if not isinstance(scalar, (int, float)):
             raise TypeError(f"{scalar} is not a number.")
@@ -61,7 +61,7 @@ class Quaternion:
     def normalize(self) -> 'Quaternion':
         """Return a normalized (unit) quaternion with the same orientation."""
         n = self.norm
-        if n == 0:
+        if abs(n) < 1e-9:
             raise ValueError("Cannot normalize a zero quaternion.")
         return Quaternion(self.w / n, self.x / n, self.y / n, self.z / n)
 

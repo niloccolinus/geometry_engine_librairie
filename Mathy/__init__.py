@@ -29,6 +29,7 @@ from .renderer import Renderer
 from .gameobject import Cube
 from .camera import Camera
 from .projection import Projection
+from .gameobject import Airplane
 
 __all__ = [
     "Vector2",
@@ -65,5 +66,6 @@ __all__ = [
     "Cube",
     "Camera",
     "Projection",
-    "Quaternion"
+    "Quaternion",
+    "Airplane"
 ]

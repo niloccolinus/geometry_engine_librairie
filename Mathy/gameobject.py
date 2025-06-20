@@ -66,3 +66,29 @@ class Cube(GameObject):
                      2, 6,  # left top edge (CG)
                      3, 7   # right top edge (DH)
                          ])
+
+
+class Airplane(Cube):
+    """A class to represent an airplane using three cubic meshes."""
+
+    def __init__(self, wing_scale: float):
+        """Initialize an airplane-like game object."""
+        # Make sure the wings are appropriately sized
+        if (wing_scale > 0 and wing_scale <= 0.5) and isinstance(wing_scale, float):  # noqa: E501
+            self.wing_scale = wing_scale
+        elif isinstance(wing_scale, float):
+            raise ValueError("wing_scale must be greater than 0 and less than or equal to 0.5!")  # noqa: E501
+        else:
+            raise TypeError("wing_scale must be a float!")
+
+        # Create wings that are proportional to the body of the airplane
+        self.left_wing = Cube().transform.homothetic_scale(wing_scale)
+        self.right_wing = Cube().transform.homothetic_scale(wing_scale)
+
+        # Calculate the length of the edges for the body of the airplane
+        self.body_edge =
+
+        # Locate the wings adjacent to the body of the airplane
+        self.wing_offset = self.body_edge / 2 + self.body_edge * wing_scale / 2
+        self.left_wing.translate(0, 0, -self.wing_offset)
+        self.right_wing.translate(0, 0, self.wing_offset)

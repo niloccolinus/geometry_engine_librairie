@@ -33,6 +33,7 @@ Ce répertoire contient la bibliothèque principale du moteur de géométrie.
 - `Renderer3D` : cette classe gère les informations de rendu d'un `GameObject`, notamment la conversion des coordonnées locales en coordonnées monde, et leur projection à l'écran.
 - `Camera`: cette classe simule la présence d'une caméra dans une scène 3D.
 - `Projection` : cette classe permet la projection de coordonnées 3D dans un espace 2D.
+- `Quaternion` : cette classe permet d'utiliser des quaternions pour calculer des rotations dans un espace 3D.
 
 ## Tests
 

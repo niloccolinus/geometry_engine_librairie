@@ -5,10 +5,12 @@ from Mathy import Matrix4x4
 
 
 class Quaternion:
-    def __init__(self, 
-                 w: float | int, 
-                 x: float | int, 
-                 y: float | int, 
+    """Define a quaternion class."""
+
+    def __init__(self,
+                 w: float | int,
+                 x: float | int,
+                 y: float | int,
                  z: float | int):
         """Initialize a quaternion with the given values."""
         if all(isinstance(i, (int, float)) for i in [x, y, z, w]):
@@ -52,7 +54,7 @@ class Quaternion:
     def conjugate(self) -> 'Quaternion':
         """Calculate the conjugate of the quaternion."""
         return Quaternion(self.w, -self.x, -self.y, -self.z)
-    
+
     @property
     def inverse(self) -> 'Quaternion':
         """Calculate the inverse of the quaternion."""
@@ -113,7 +115,7 @@ class Quaternion:
 
         q = self.normalize()
         w, x, y, z = q.w, q.x, q.y, q.z
-    
+
         return Matrix4x4(
             1 - 2*(y**2 + z**2), 2*(x*y - w*z),       2*(x*z + w*y),       0,
             2*(x*y + w*z),       1 - 2*(x**2 + z**2), 2*(y*z - w*x),       0,

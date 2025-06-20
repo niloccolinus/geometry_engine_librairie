@@ -85,8 +85,9 @@ class Airplane(Cube):
         self.left_wing = Cube().transform.homothetic_scale(wing_scale)
         self.right_wing = Cube().transform.homothetic_scale(wing_scale)
 
-        # Calculate the length of the edges for the body of the airplane
-        self.body_edge =
+        # Calculate the length of an edge for the body of the airplane
+        self.body_edge = self.vertices[0].subtract(self.vertices[1])
+        self.body_edge = self.body_edge.norm()
 
         # Locate the wings adjacent to the body of the airplane
         self.wing_offset = self.body_edge / 2 + self.body_edge * wing_scale / 2

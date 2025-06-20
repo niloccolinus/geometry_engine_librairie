@@ -45,14 +45,14 @@ class Cube(GameObject):
     def __init__(self):
         """Initialize a cubic game object."""
         super().__init__([Vector3(-1.0, -1.0,  1.0),
-                  Vector3(1.0, -1.0,  1.0),
-                  Vector3(-1.0,  1.0,  1.0),
-                  Vector3(1.0,  1.0,  1.0),
-                  Vector3(-1.0, -1.0, -1.0),
-                  Vector3(1.0, -1.0, -1.0),
-                  Vector3(-1.0,  1.0, -1.0),
-                  Vector3(1.0,  1.0, -1.0)],
-                 [
+                         Vector3(1.0, -1.0,  1.0),
+                         Vector3(-1.0,  1.0,  1.0),
+                         Vector3(1.0,  1.0,  1.0),
+                         Vector3(-1.0, -1.0, -1.0),
+                         Vector3(1.0, -1.0, -1.0),
+                         Vector3(-1.0,  1.0, -1.0),
+                         Vector3(1.0,  1.0, -1.0)],
+                         [
                      0, 1,  # front bottom edge (AB)
                      1, 3,  # front right edge (BD)
                      3, 2,  # front top edge (DC)
@@ -65,4 +65,4 @@ class Cube(GameObject):
                      1, 5,  # right bottom edge (BF)
                      2, 6,  # left top edge (CG)
                      3, 7   # right top edge (DH)
-                 ])
+                         ])

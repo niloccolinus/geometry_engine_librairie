@@ -59,7 +59,7 @@ def test_quaternion_to_euler():
     """Test to_euler() method."""
     # Quaternion for 90° rotation around Z: (cos(θ/2), 0, 0, sin(θ/2))
     theta = deg_to_rad(90)
-    q = Quaternion(cos(theta / 2), 0, 0, sin(theta / 2))  
+    q = Quaternion(cos(theta / 2), 0, 0, sin(theta / 2))
     angles = q.to_euler()
 
     expected_x = 0  # no roll

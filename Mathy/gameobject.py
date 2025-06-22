@@ -69,7 +69,7 @@ class Cube(GameObject):
 
 
 class Airplane(GameObject):
-    """A class to represent an airplane using three cubic meshes."""
+    """A class to represent an airplane."""
 
     def __init__(self):
         """Initialize an airplane-like game object."""

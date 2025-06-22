@@ -51,3 +51,15 @@ def tan(x):
 def is_close(a, b, rel_tol=1e-9, abs_tol=0.0):
     """Determine whether two floating-point numbers are approximately equal."""
     return abs(a - b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
+
+
+def abs(x):
+    if (x < 0):
+        return -x
+    else:
+        return x
+
+
+def root(x, n=2):
+    """Returns nth root of x with a parameter n defined at 2 by default"""
+    return x ** (1/n)

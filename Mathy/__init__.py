@@ -2,9 +2,10 @@
 
 from .math_utils import pi, factorial, deg_to_rad, sin, cos, tan, is_close
 from .vector2 import Vector2
-from .triangle import Triangle
-from .matrix2x2 import Matrix2x2
 from .vector3 import Vector3
+from .triangle import Triangle
+from .triangle import Triangle3D
+from .matrix2x2 import Matrix2x2
 from .vector3 import HomogeneousVector3
 from .matrix3x3 import Matrix3x3
 from .matrix3x3 import TranslationMatrix3x3

@@ -1,6 +1,9 @@
 """Defines a triangle class."""
 
 
+from Mathy import Vector3, math_utils
+
+
 class Triangle:
     """A class to represent a triangle."""
 
@@ -102,3 +105,82 @@ class Triangle:
             (point[0] - circumcenter[0])**2 + (point[1] - circumcenter[1])**2
             ) ** 0.5
         return norm < circumradius
+
+
+class Triangle3D(Triangle):
+    """A class to represent a triangle."""
+
+    def __init__(
+        self,
+        pa: tuple[float, float, float],
+        pb: tuple[float, float, float],
+        pc: tuple[float, float, float]
+    ):
+        """
+        Initialize a triangle with 3 vertices.
+
+        Each point is a tuple (x, y).
+        """
+        self.pa = pa
+        self.pb = pb
+        self.pc = pc
+
+    def side_lengths(self) -> tuple[float, float, float]:
+        """Return the lengths of the triangle's sides (a, b, c).
+
+        a = length between p1 and p2
+        b = length between p2 and p3
+        c = length between p1 and p3
+        """
+        def distance(pA, pB):
+            dx = pA[0] - pB[0]
+            dy = pA[1] - pB[1]
+            dz = pA[2] - pB[2]
+            return math_utils.root((dx ** 2) + (dy ** 2) + (dz ** 2))
+        a = distance(self.pa, self.pb)
+        b = distance(self.pb, self.pc)
+        c = distance(self.pa, self.pc)
+        return a, b, c
+
+    def perimeter(self) -> float:
+        """Return the perimeter of the triangle."""
+        a, b, c = self.side_lengths()
+        return a + b + c
+
+    def area(self) -> float:
+        """Return the area of the triangle using Heron's formula."""
+        if self.right_angled():
+            # Sort to make sure the hypothenuse is last
+            a, b, c = sorted(self.side_lengths())
+            return (a * b) / 2
+        a, b, c = self.side_lengths()
+        s = (a + b + c) / 2  # semi-perimeter
+        return (s * (s - a) * (s - b) * (s - c)) ** 0.5
+
+    def right_angled(self) -> bool:
+        """Check if the triangle is right-angled using Pythagorean theorem."""
+        # Sort to make sure the hypothenuse is last
+        a, b, c = sorted(self.side_lengths())
+        epsilon = 1e-9
+        # Allow for small floating-point errors
+        return abs(a ** 2 + b ** 2 - c ** 2) < epsilon
+
+    def get_vertices(
+        self
+    ) -> tuple[tuple[float, float, float],
+               tuple[float, float, float],
+               tuple[float, float, float]]:
+        """Return the three vertices of the triangle."""
+        return self.pa, self.pb, self.pc
+
+    def get_edges(
+        self
+    ) -> tuple[tuple[tuple[float, float, float], tuple[float, float, float]],
+               tuple[tuple[float, float, float], tuple[float, float, float]],
+               tuple[tuple[float, float, float], tuple[float, float, float]]]:
+        """Return the three edges of the triangle."""
+        return [
+            (self.pa, self.pb),
+            (self.pb, self.pc),
+            (self.pc, self.pa)
+        ]

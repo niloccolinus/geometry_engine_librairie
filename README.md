@@ -27,8 +27,9 @@ Ce répertoire contient la bibliothèque principale du moteur de géométrie.
 - `Vector4` : représente un vecteur dans ℝ<sup>4</sup>. Une classe fille qui hérite de cette classe peut être utilisée pour manipuler des coordonnées homogènes dans ℝ³ : 
   - `HomogeneousVector4` : génère un vecteur en coordonnées homogènes à partir des coordonnées (x, y, z) d'un vecteur dans ℝ³.
 - `barycentric_coordinates` : fonction qui permet de calculer les coordonnées barycentriques d'un point pour un triangle donné.
-- `GameObject` : inspirée de la classe GameObject du moteur de jeu Unity, cette classe contient les informations permttant de générer un maillage 3D. Une classe fille hérite de cette classe :
-  - `Cube` : génère le maillage 3D d'un `GameObject` cubique. 
+- `GameObject` : inspirée de la classe GameObject du moteur de jeu Unity, cette classe contient les informations permttant de générer un maillage 3D. Deux classes filles héritent de cette classe :
+  - `Cube` : génère le maillage 3D d'un `GameObject` cubique.
+  - `Airplane` : génère le maillage 3D d'un `GameObject` modélisant un avion. 
 - `Transform` : inspirée de la classe Transform de Unity, cette classe gère les informations de géométrie d'un `GameObject`(position, rotation, échelle).
 - `Renderer3D` : cette classe gère les informations de rendu d'un `GameObject`, notamment la conversion des coordonnées locales en coordonnées monde, et leur projection à l'écran.
 - `Camera`: cette classe simule la présence d'une caméra dans une scène 3D.

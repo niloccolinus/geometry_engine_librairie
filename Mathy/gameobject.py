@@ -85,14 +85,14 @@ class Airplane(GameObject):
         self.body = Cube()
         # Create wings that are proportional to the body of the airplane
         self.left_wing = Cube()
-        self.left_wing.transform.homothetic_scale(wing_scale)
+        self.left_wing.transform.homothetic_scale(self.wing_scale)
         self.right_wing = Cube()
-        self.left_wing.transform.homothetic_scale(wing_scale)
+        self.right_wing.transform.homothetic_scale(self.wing_scale)
 
-        # # Calculate the length of an edge for the body of the airplane
+        # Calculate the length of an edge for the body of the airplane
         self.body_edge = (self.body.vertices[0].subtract(self.body.vertices[1])).norm  # noqa: E501
 
         # Locate the wings adjacent to the body of the airplane
         self.wing_offset = self.body_edge / 2 + self.body_edge * wing_scale / 2
-        self.left_wing.transform.translate(0, -self.wing_offset, 0)
-        self.right_wing.transform.translate(0, self.wing_offset, 0)
+        self.left_wing.transform.translate(0, 0, -self.wing_offset)
+        self.right_wing.transform.translate(0, 0, self.wing_offset)

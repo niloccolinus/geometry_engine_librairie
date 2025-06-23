@@ -1,7 +1,7 @@
 """Defines a triangle class."""
 
 
-from Mathy import Vector3, math_utils
+from Mathy import math_utils
 
 
 class Triangle:

@@ -54,6 +54,7 @@ def is_close(a, b, rel_tol=1e-9, abs_tol=0.0):
 
 
 def abs(x):
+    """Return the absolute value of a number."""
     if (x < 0):
         return -x
     else:
@@ -61,5 +62,5 @@ def abs(x):
 
 
 def root(x, n=2):
-    """Returns nth root of x with a parameter n defined at 2 by default"""
+    """Return the nth root of x with a parameter n defined at 2 by default."""
     return x ** (1/n)

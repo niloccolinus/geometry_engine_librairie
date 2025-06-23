@@ -1,7 +1,7 @@
 """Tests for the Triangle class."""
 
 
-from Mathy import Triangle, Triangle3D, math_utils
+from Mathy import Triangle, Triangle3D, math_utils, Vector3
 
 # Example triangle 1
 triangle1 = Triangle([0, 0], [0, 1], [1, 0])
@@ -85,9 +85,9 @@ def test_get_vertices():
 
 # Triangle 3D Tests Unitaires
 # Example triangle 4
-triangle4 = Triangle3D([0, 0, 1], [0, 1, 0], [1, 0, 0])
+triangle4 = Triangle3D(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0))
 # Example triangle 5
-triangle5 = Triangle3D([-1, 0, 0], [0, 0, 1], [1, 0, 0])
+triangle5 = Triangle3D(Vector3(-1, 0, 0), Vector3(0, 0, 1), Vector3(1, 0, 0))
 # Example triangle 6
 triangle6 = Triangle3D([0, -2.5, 0], [0, 0, 5.5], [2.5, 0, 0])
 

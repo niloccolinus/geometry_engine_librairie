@@ -1,8 +1,7 @@
 """Tests for the Triangle class."""
 
 
-import pytest
-from Mathy import Triangle, Triangle3D, Vector3, math_utils
+from Mathy import Triangle, Triangle3D, math_utils
 
 # Example triangle 1
 triangle1 = Triangle([0, 0], [0, 1], [1, 0])
@@ -76,7 +75,7 @@ triangle5 = Triangle3D([-1, 0, 0], [0, 0, 1], [1, 0, 0])
 triangle6 = Triangle3D([0, -2.5, 0], [0, 0, 5.5], [2.5, 0, 0])
 
 
-def test_side_lengths():
+def test_side_lengths_3d():
     """Test side_lengths() method."""
     # Lengths triangle 4
     # assert triangle4.side_lengths() == (
@@ -89,7 +88,7 @@ def test_side_lengths():
         math_utils.root(36.5), math_utils.root(36.5), math_utils.root(12.5))
 
 
-def test_perimeter():
+def test_perimeter_3d():
     """Test perimeter() method."""
     # Perimeter triangle 4
     assert triangle4.perimeter() == float(
@@ -102,7 +101,7 @@ def test_perimeter():
         math_utils.root(12.5) + math_utils.root(36.5) * 2)
 
 
-def test_area():
+def test_area_3d():
     """Test area() method."""
     # Area triangle 4
     assert math_utils.is_close(triangle4.area(), 0.87, 1e-02)
@@ -114,7 +113,7 @@ def test_area():
     assert math_utils.is_close(triangle6.area(), 10.21, 1e-02)
 
 
-def test_right_angled():
+def test_right_angled_3d():
     """Test right_angled() method."""
     # Test right-angled triangle 4
     assert triangle4.right_angled() == 0
@@ -124,7 +123,7 @@ def test_right_angled():
     assert triangle6.right_angled() == 0
 
 
-def test_get_vertices():
+def test_get_vertices_3d():
     """Test get_vertices() method."""
     # Vertices triangle 4
     assert triangle4.get_vertices() == ([0, 0, 1], [0, 1, 0], [1, 0, 0])

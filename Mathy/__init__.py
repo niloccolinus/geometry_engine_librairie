@@ -68,5 +68,6 @@ __all__ = [
     "Camera",
     "Projection",
     "Quaternion",
-    "Airplane"
+    "Airplane",
+    "Triangle3D"
 ]

@@ -1,7 +1,7 @@
 """Defines a triangle class."""
 
 
-from Mathy import math_utils
+from Mathy import math_utils, Vector3
 
 
 class Triangle:
@@ -112,9 +112,9 @@ class Triangle3D(Triangle):
 
     def __init__(
         self,
-        pa: tuple[float, float, float],
-        pb: tuple[float, float, float],
-        pc: tuple[float, float, float]
+        pa: Vector3,
+        pb: Vector3,
+        pc: Vector3
     ):
         """
         Initialize a triangle with 3 vertices.
@@ -125,7 +125,7 @@ class Triangle3D(Triangle):
         self.pb = pb
         self.pc = pc
 
-    def side_lengths(self) -> tuple[float, float, float]:
+    def side_lengths(self) -> Vector3:
         """Return the lengths of the triangle's sides (a, b, c).
 
         a = length between p1 and p2

@@ -1,6 +1,6 @@
 """Defines a 3D renderer class."""
 
-from Mathy import HomogeneousVector4
+from Mathy import HomogeneousVector4, Triangle3D, Vector3
 
 
 class Renderer3D(object):
@@ -10,9 +10,33 @@ class Renderer3D(object):
         """Apply world coordinates to game object."""
         model_matrix = game_object.transform.transform_matrix
         world_vertices = []
+        triangles_world = []
         for vertex in game_object.homogeneous_vertices:
             world_vertices.append(vertex.multiply_by_matrix(model_matrix))
-        return world_vertices
+        for triangle in game_object.triangles:
+            pa = triangle.pa.multiply_by_matrix(model_matrix)
+            pb = triangle.pb.multiply_by_matrix(model_matrix)
+            pc = triangle.pc.multiply_by_matrix(model_matrix)
+            triangles_world.append(Triangle3D(pa, pb, pc))
+        return (world_vertices, triangles_world)
+    
+    def set_mesh_data(self, gameobject):
+        """Set mesh data for rendering."""
+        self.vertices = gameobject.homogeneous_vertices
+        self.indices = gameobject.indices
+        self.triangles = []
+        for i in range(0, len(self.indices) - 1, 3):
+            p1 = Vector3(self.vertices[self.indices[i]].x,
+                 self.vertices[self.indices[i]].y,
+                 self.vertices[self.indices[i]].z).homogenize()
+            p2 = Vector3(self.vertices[self.indices[i + 1]].x,
+                 self.vertices[self.indices[i + 1]].y,
+                 self.vertices[self.indices[i + 1]].z).homogenize()
+            p3 = Vector3(self.vertices[self.indices[i + 2]].x,
+                 self.vertices[self.indices[i + 2]].y,
+                 self.vertices[self.indices[i + 2]].z).homogenize()
+            self.triangles.append(Triangle3D(p1, p2, p3))
+        gameobject.triangles = self.triangles
 
     def project_vertices(self, vertices, camera, projection):
         """Project vertices from 3D space to 2D screen space."""

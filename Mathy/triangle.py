@@ -108,7 +108,7 @@ class Triangle:
 
 
 class Triangle3D(Triangle):
-    """A class to represent a triangle."""
+    """A class to represent a triangle in 3D coordinates."""
 
     def __init__(
         self,
@@ -119,7 +119,7 @@ class Triangle3D(Triangle):
         """
         Initialize a triangle with 3 vertices.
 
-        Each point is a tuple (x, y).
+        Each point is a tuple (x, y, z).
         """
         self.pa = pa
         self.pb = pb

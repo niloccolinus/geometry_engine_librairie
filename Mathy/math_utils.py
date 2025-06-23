@@ -43,7 +43,7 @@ def cos(x):
 
 def tan(x):
     """Approximate tangent(x) for any x (radians) using sin and cos."""
-    if cos(x) == 0:
+    if abs(cos(x)) < 1e-9:
         raise ValueError("Tangent is undefined for this angle (cosine is zero).")  # noqa: E501
     return sin(x) / cos(x)
 

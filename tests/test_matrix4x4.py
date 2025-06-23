@@ -116,7 +116,7 @@ def test_prod():
 
 def test_determinant():
     """Test determinant() method."""
-    assert matrix1.determinant() == 0
+    assert abs(matrix1.determinant()) < 1e-9
     m = Matrix4x4(
         0, 1, 0, 0,
         1, 0, 0, 1,

@@ -8,13 +8,13 @@ from Mathy import Matrix2x2
 def test_norm():
     """Test norm() method."""
     # Norm zero
-    assert Vector2(0, 0).norm == 0.0
+    assert abs(Vector2(0, 0).norm) < 1e-9
 
     # Norm positive coordinates
-    assert round(Vector2(2, 4).norm, 2) == 4.47
+    assert abs(round(Vector2(2, 4).norm, 2) - 4.47) < 1e-9
 
     # Norm negative coordinates
-    assert round(Vector2(-2, -4).norm, 2) == 4.47
+    assert abs(round(Vector2(-2, -4).norm, 2) - 4.47) < 1e-9
 
 
 def test_eq():

@@ -58,6 +58,8 @@ class Quaternion:
     @property
     def inverse(self) -> 'Quaternion':
         """Calculate the inverse of the quaternion."""
+        if self == Quaternion(0, 0, 0, 0):
+            raise ValueError("Null quaternion is not invertible.")
         return self.conjugate / self.norm**2
 
     def normalize(self) -> 'Quaternion':

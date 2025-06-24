@@ -114,7 +114,8 @@ class Triangle3D(Triangle):
         self,
         pa: Vector3,
         pb: Vector3,
-        pc: Vector3
+        pc: Vector3,
+        indices: dict[str, int] = None,
     ):
         """
         Initialize a triangle with 3 vertices.
@@ -124,6 +125,7 @@ class Triangle3D(Triangle):
         self.pa = pa
         self.pb = pb
         self.pc = pc
+        self.indices = indices or {pa: 0, pb: 1, pc: 2}
 
     def side_lengths(self) -> Vector3:
         """Return the lengths of the triangle's sides (a, b, c).

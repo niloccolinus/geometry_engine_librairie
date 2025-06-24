@@ -31,6 +31,7 @@ from .gameobject import Cube
 from .camera import Camera
 from .projection import Projection
 from .gameobject import Airplane
+from .texture import gengar_tex
 
 __all__ = [
     "Vector2",
@@ -69,5 +70,6 @@ __all__ = [
     "Projection",
     "Quaternion",
     "Airplane",
-    "Triangle3D"
+    "Triangle3D",
+    "gengar_tex"
 ]

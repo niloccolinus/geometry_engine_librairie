@@ -17,7 +17,7 @@ class Renderer3D(object):
             pa = triangle.pa.multiply_by_matrix(model_matrix)
             pb = triangle.pb.multiply_by_matrix(model_matrix)
             pc = triangle.pc.multiply_by_matrix(model_matrix)
-            triangles_world.append(Triangle3D(pa, pb, pc))
+            triangles_world.append(Triangle3D(pa, pb, pc, triangle.indices))
         return (world_vertices, triangles_world)
     
     def set_mesh_data(self, gameobject):
@@ -35,7 +35,11 @@ class Renderer3D(object):
             p3 = Vector3(self.vertices[self.indices[i + 2]].x,
                  self.vertices[self.indices[i + 2]].y,
                  self.vertices[self.indices[i + 2]].z).homogenize()
-            self.triangles.append(Triangle3D(p1, p2, p3))
+            self.triangles.append(Triangle3D(p1, p2, p3, {
+                "pa": self.indices[i],
+                "pb": self.indices[i + 1],
+                "pc": self.indices[i + 2]
+            }))
         gameobject.triangles = self.triangles
 
     def project_vertices(self, vertices, camera, projection):

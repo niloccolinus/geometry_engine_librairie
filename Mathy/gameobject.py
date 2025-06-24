@@ -13,6 +13,12 @@ class GameObject:
         # 3D mesh data
         self.vertices = vertices
         self.indices = indices
+        self.uvs = []
+        for i in range(0, len(self.vertices) // 2 * 6, 4): # 24 UV coordinates for 6 faces * 4 vertices
+                self.uvs.append(Vector3(0.0, 1.0, 0.0))
+                self.uvs.append(Vector3(1.0, 1.0, 0.0))
+                self.uvs.append(Vector3(0.0, 0.0, 0.0))
+                self.uvs.append(Vector3(1.0, 0.0, 0.0))
         self.triangles = []
         # Transform and renderer components
         self.transform = Transform()

@@ -107,7 +107,7 @@ class Renderer3D(object):
             triangle.indices,
             triangle.uv
         )
-        if rasterize == false:
+        if rasterize == False:
             renderer.draw_triangle(
                 (p1.x, p1.y),
                 (p2.x, p2.y),

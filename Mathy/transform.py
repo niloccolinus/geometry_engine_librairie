@@ -24,6 +24,9 @@ class Transform:
         translation = TranslationMatrix4x4(a, b, c)
         self.transform_matrix = self.transform_matrix.prod(translation)
 
+    def lerp(self, other, t: float):
+        self.transform_matrix = self.transform_matrix.lerp(other, t)
+
     def rotate(self, angle_x, angle_y, angle_z):
         """Apply rotation using Euler angles."""
         rot_x = RotationMatrix4x4_x(angle_x)

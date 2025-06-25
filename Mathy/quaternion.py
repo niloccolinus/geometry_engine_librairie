@@ -92,6 +92,19 @@ class Quaternion:
         else:
             raise TypeError(f"{other} is not a Quaternion")
 
+    def power(self, exponent: float | int) -> 'Quaternion':
+        """Raise the quaternion to a power and return a new Quaternion."""
+        if not isinstance(exponent, (int, float)):
+            raise TypeError(f"{exponent} is not a number.")
+        if exponent == 0:
+            return Quaternion(1, 0, 0, 0)
+        result = self
+        for _ in range(int(abs(exponent)) - 1):
+            result = result.prod(self)
+        if exponent < 0:
+            return result.inverse
+        return result
+
     def euler_to_quaternion(angle_x, angle_y, angle_z) -> 'Quaternion':
         """Convert Euler angles (in radians) to a quaternion."""
         from Mathy import cos, sin
@@ -124,3 +137,24 @@ class Quaternion:
             2*(x*z - w*y),       2*(y*z + w*x),       1 - 2*(x**2 + y**2), 0,
             0,                   0,                   0,                   1
         )
+        
+    def slerp(self, q2, t):
+        """
+        Perform SLERP between two quaternions q1 and q2 at time t.  
+        q1, q2: Quaternions  
+        t: Interpolation factor (0 <= t <= 1)  
+        Returns interpolated Quaternion.
+        """
+        if not isinstance(q2, Quaternion):
+            raise TypeError(f"{q2} is not a Quaternion")
+        if not (0 <= t <= 1):
+            raise ValueError("Interpolation factor t must be in [0, 1]")
+        
+        q1 = self.normalize()
+        q2 = q2.normalize()
+        
+        delta_q = q2.prod(q1.inverse)
+        
+        q_t = delta_q.power(t)
+        
+        return q1.prod(q_t).normalize()

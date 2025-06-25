@@ -160,23 +160,23 @@ class Renderer3D(object):
                     z_pixel = lambda_A * p1.z + lambda_B * p2.z + lambda_C * p3.z
                     if self.is_in_front_of_camera(z_pixel, x, y):
                         self.z_buffer[x][y] = z_pixel
-                        u_pixel, v_pixel = self.interpolate_texture_coordinates(
-                            lambda_A, lambda_B, lambda_C,
-                            triangle.uv[0], triangle.uv[1], triangle.uv[2]
-                        )
-                        # color = self.interpolate_color (
-                        #     lambda_A, lambda_B, lambda_C
+                        # u_pixel, v_pixel = self.interpolate_texture_coordinates(
+                        #     lambda_A, lambda_B, lambda_C,
+                        #     triangle.uv[0], triangle.uv[1], triangle.uv[2]
                         # )
-                        # self.framebuffer_color[x][y] = color
-                        # Clamp texture coordinates to [0, 1]
-                        u_pixel = max(0, min(1, u_pixel))
-                        v_pixel = max(0, min(1, v_pixel))
-                        # Compute the color based on texture coordinates
-                        x_tex = int(u_pixel * (150 - 1))
-                        y_tex = int(v_pixel * (150 - 1))
-                        tex_index = y_tex * 150 + x_tex
-                        self.framebuffer_color[x][y] = (
-                            self.texture[tex_index]
+                        color = self.interpolate_color (
+                            lambda_A, lambda_B, lambda_C
                         )
+                        self.framebuffer_color[x][y] = color
+                        # # Clamp texture coordinates to [0, 1]
+                        # u_pixel = max(0, min(1, u_pixel))
+                        # v_pixel = max(0, min(1, v_pixel))
+                        # # Compute the color based on texture coordinates
+                        # x_tex = int(u_pixel * (150 - 1))
+                        # y_tex = int(v_pixel * (150 - 1))
+                        # tex_index = y_tex * 150 + x_tex
+                        # self.framebuffer_color[x][y] = (
+                        #     self.texture[tex_index]
+                        # )
                     pixels.append((x, y, self.framebuffer_color[x][y]))
         return pixels

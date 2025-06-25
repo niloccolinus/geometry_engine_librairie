@@ -1,18 +1,21 @@
 """Defines a GameObject class."""
 
-from Mathy import Transform, Renderer3D, Vector3
+from Mathy import Transform, Renderer3D, Vector3, gengar_tex
 
 
 class GameObject:
     """Represents a 3D object in the scene with a transform and a renderer."""
 
     def __init__(self, vertices: list[Vector3],
-                 indices: list[int], name="GameObject"):
+                 indices: list[int], name="GameObject", texture=gengar_tex):
         """Initialize a game object."""
         self.name = name
         # 3D mesh data
+        self.texture = texture
         self.vertices = vertices
         self.indices = indices
+        self.uv = None
+        self.triangles = []
         # Transform and renderer components
         self.transform = Transform()
         self.renderer = Renderer3D()
@@ -20,7 +23,8 @@ class GameObject:
         self.homogeneous_vertices = []
         for vertex in self.vertices:
             self.homogeneous_vertices.append(vertex.homogenize())
-
+        # Set the mesh data for the renderer
+        self.renderer.set_mesh_data(self)
 
 class Cube(GameObject):
     """A class to represent a cube."""
@@ -35,20 +39,23 @@ class Cube(GameObject):
                          Vector3(1.0, -1.0, -1.0),
                          Vector3(-1.0,  1.0, -1.0),
                          Vector3(1.0,  1.0, -1.0)],
-                         [
-                     0, 1,  # front bottom edge (AB)
-                     1, 3,  # front right edge (BD)
-                     3, 2,  # front top edge (DC)
-                     2, 0,  # front left edge (CA)
-                     4, 5,  # back bottom edge (EF)
-                     5, 7,  # back right edge (FH)
-                     7, 6,  # back top edge (HG)
-                     6, 4,  # back left edge (GE)
-                     0, 4,  # left bottom edge (AE)
-                     1, 5,  # right bottom edge (BF)
-                     2, 6,  # left top edge (CG)
-                     3, 7   # right top edge (DH)
-                         ])
+                         indices=[0, 1, 2,
+                                1, 3, 2,
+                                4, 5, 6,
+                                5, 7, 6,
+                                0, 1, 4,
+                                1, 5, 4,
+                                2, 3, 6,
+                                3, 7, 6,
+                                0, 2, 4,
+                                2, 6, 4,
+                                1, 3, 5,
+                                3, 7, 5]
+                        )
+        self.uv = [
+                (0.0, 1.0), (1.0, 1.0), (0.0, 0.0), (1.0, 0.0),
+                (0.0, 1.0), (1.0, 1.0), (0.0, 0.0), (1.0, 0.0)
+        ]
 
 
 class Airplane(GameObject):

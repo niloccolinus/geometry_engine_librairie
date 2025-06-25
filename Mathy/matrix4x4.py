@@ -115,6 +115,22 @@ class Matrix4x4:
         # 3) Apply the formula
         return (a * det1 - b * det2 + c * det3 - d * det4)
 
+    def lerp(self, other: 'Matrix4x4', t: float) -> 'Matrix4x4':
+        """Linearly interpolate between two 4x4 matrices."""
+        if isinstance(other, Matrix4x4) and isinstance(t, (int, float)):
+            res = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+            for i in range(4):
+                for j in range(4):
+                    res[i][j] = self.matrix[i][j] + t * (other.matrix.matrix[i][j] - self.matrix[i][j])
+            return Matrix4x4(
+                res[0][0], res[0][1], res[0][2], res[0][3],
+                res[1][0], res[1][1], res[1][2], res[1][3],
+                res[2][0], res[2][1], res[2][2], res[2][3],
+                res[3][0], res[3][1], res[3][2], res[3][3],
+            )
+        else:
+            raise TypeError(f'{other} is not a Matrix4x4 or {t} is not a number.')
+
     def round(self, decimal: int) -> 'Matrix4x4':
         """Return a rounded approximation of the matrix's contents."""
         if (decimal >= 0 and isinstance(decimal, int)):

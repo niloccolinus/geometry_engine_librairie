@@ -97,7 +97,7 @@ class Renderer3D(object):
         return (p1, p2, p3)
 
     def draw_2d_triangle(self, triangle,  camera, projection, renderer,
-                         rasterize: bool):
+                         rasterize=True):
         """Draw a triangle in 2D space."""
         p1, p2, p3 = self.project_triangle(triangle, camera, projection)
         projected_triangle = Triangle3D(
@@ -107,7 +107,7 @@ class Renderer3D(object):
             triangle.indices,
             triangle.uv
         )
-        if rasterize == False:
+        if rasterize is False:
             renderer.draw_triangle(
                 (p1.x, p1.y),
                 (p2.x, p2.y),

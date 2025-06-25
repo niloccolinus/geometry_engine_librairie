@@ -121,7 +121,7 @@ class Matrix4x4:
             res = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
             for i in range(4):
                 for j in range(4):
-                    res[i][j] = self.matrix[i][j] + t * (other.matrix[i][j] - self.matrix[i][j])
+                    res[i][j] = self.matrix[i][j] + t * (other.matrix.matrix[i][j] - self.matrix[i][j])
             return Matrix4x4(
                 res[0][0], res[0][1], res[0][2], res[0][3],
                 res[1][0], res[1][1], res[1][2], res[1][3],

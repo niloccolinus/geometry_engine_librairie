@@ -30,7 +30,7 @@ class Transform:
         rot_y = RotationMatrix4x4_y(angle_y)
         rot_z = RotationMatrix4x4_z(angle_z)
         rotation = TotalRotationMatrix4x4(rot_x, rot_y, rot_z)
-        self.transform_matrix = self.transform_matrix.prod(rotation)
+        self.transform_matrix = self.transform_matrix.prod(rotation.matrix)
 
     def rotate_quaternion(self, quaternion: 'Quaternion'):
         """Apply rotation using Quaternion."""

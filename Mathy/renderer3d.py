@@ -99,15 +99,15 @@ class Renderer3D(object):
             triangle.indices,
             triangle.uv
         )
-        # renderer.draw_triangle(
-        #     (p1.x, p1.y),
-        #     (p2.x, p2.y),
-        #     (p3.x, p3.y),
-        #     color=(0.5, 0.5, 0.5)
-        # )
-        pixels = self.rasterize_triangle(projected_triangle)
-        for x, y, color in pixels:
-            renderer.draw_point(x, y, color, radius=1)
+        renderer.draw_triangle(
+            (p1.x, p1.y),
+            (p2.x, p2.y),
+            (p3.x, p3.y),
+            color=(0.5, 0.5, 0.5)
+        )
+        # pixels = self.rasterize_triangle(projected_triangle)
+        # for x, y, color in pixels:
+        #     renderer.draw_point(x, y, color, radius=1)
             
     def is_in_front_of_camera(self, z_pixel, x, y):
         """Check if the pixel is in front of the camera."""

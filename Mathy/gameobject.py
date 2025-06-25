@@ -1,24 +1,20 @@
 """Defines a GameObject class."""
 
-from Mathy import Transform, Renderer3D, Vector3
+from Mathy import Transform, Renderer3D, Vector3, gengar_tex
 
 
 class GameObject:
     """Represents a 3D object in the scene with a transform and a renderer."""
 
     def __init__(self, vertices: list[Vector3],
-                 indices: list[int], name="GameObject"):
+                 indices: list[int], name="GameObject", texture=gengar_tex):
         """Initialize a game object."""
         self.name = name
         # 3D mesh data
+        self.texture = texture
         self.vertices = vertices
         self.indices = indices
-        self.uvs = []
-        for i in range(0, len(self.vertices) // 2 * 6, 4): # 24 UV coordinates for 6 faces * 4 vertices
-                self.uvs.append(Vector3(0.0, 1.0, 0.0))
-                self.uvs.append(Vector3(1.0, 1.0, 0.0))
-                self.uvs.append(Vector3(0.0, 0.0, 0.0))
-                self.uvs.append(Vector3(1.0, 0.0, 0.0))
+        self.uv = None
         self.triangles = []
         # Transform and renderer components
         self.transform = Transform()
@@ -56,6 +52,10 @@ class Cube(GameObject):
                                 1, 3, 5,
                                 3, 7, 5]
                         )
+        self.uv = [
+                (0.0, 1.0), (1.0, 1.0), (0.0, 0.0), (1.0, 0.0),
+                (0.0, 1.0), (1.0, 1.0), (0.0, 0.0), (1.0, 0.0)
+        ]
 
 
 class Airplane(GameObject):

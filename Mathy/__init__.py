@@ -18,6 +18,7 @@ from .matrix4x4 import RotationMatrix4x4_y
 from .matrix4x4 import RotationMatrix4x4_z
 from .matrix4x4 import HomothetyMatrix4x4
 from .barycentric import barycentric_coordinates
+from .texture import gengar_tex
 from .vector4 import Vector4
 from .vector4 import HomogeneousVector4
 from .matrix4x4 import AnisotropicMatrix4x4
@@ -31,7 +32,6 @@ from .gameobject import Cube
 from .camera import Camera
 from .projection import Projection
 from .gameobject import Airplane
-from .texture import gengar_tex
 
 __all__ = [
     "Vector2",
@@ -41,6 +41,7 @@ __all__ = [
     "TranslationMatrix3x3",
     "RotationMatrix3x3",
     "HomothetyMatrix3x3",
+    "gengar_tex",
     "pi",
     "factorial",
     "deg_to_rad",
@@ -70,6 +71,5 @@ __all__ = [
     "Projection",
     "Quaternion",
     "Airplane",
-    "Triangle3D",
-    "gengar_tex"
+    "Triangle3D"
 ]

@@ -116,6 +116,7 @@ class Triangle3D(Triangle):
         pb: Vector3,
         pc: Vector3,
         indices: dict[str, int] = None,
+        uv: tuple[tuple[float, float], tuple[float, float], tuple[float, float]] = None
     ):
         """
         Initialize a triangle with 3 vertices.
@@ -126,6 +127,7 @@ class Triangle3D(Triangle):
         self.pb = pb
         self.pc = pc
         self.indices = indices or {pa: 0, pb: 1, pc: 2}
+        self.uv = uv or ((0, 0), (0, 0), (0, 0))
 
     def side_lengths(self) -> Vector3:
         """Return the lengths of the triangle's sides (a, b, c).
